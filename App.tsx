@@ -253,29 +253,32 @@ const App: React.FC = () => {
              <div className="mb-16 text-center">
                 <h2 className="text-4xl font-bold serif italic mb-6 text-lake">About Cedar Lux Properties</h2>
                 <p className="text-xl text-neutral-500 leading-relaxed">
-                  At Cedar Lux Properties, our passion is creating exceptional lakefront and lake-inspired homes that blend thoughtful design with everyday livability. Founded in 2015 by real-estate developer Gary Payne, Cedar Lux has built its reputation on quality, attention to detail, and a deep understanding of what makes lake living truly rewarding.
+                  Cedar Lux Properties was founded in 2015 by Gary Payne, a Cedar Creek local who has been building on the lake since 2011. What began with smaller builds has grown into a portfolio of high-end custom and multimillion-dollar homes — each one shaped by more than a decade of hands-on experience on this lake.
                 </p>
              </div>
 
              <div className="space-y-16">
                 <div>
-                   <h3 className="text-2xl font-bold serif mb-4">A Builder With Lake Expertise</h3>
+                   <h3 className="text-2xl font-bold serif mb-4">What Experience Actually Looks Like</h3>
                    <p className="text-neutral-500 leading-relaxed">
-                     Gary has been building on Cedar Creek Lake since 2011, giving him first-hand insight into the features and infrastructure that matter most — not just on paper, but in real life. His experience evaluating communities led him to partner with Emerald Bay at Cedar Creek Lake, a master-planned, gated lake community designed for full-time living and long-term enjoyment.
+                     Gary evaluates lake communities differently than most. While others focus on amenities and aesthetics, he looks at water depth, boat access, elevation, and how a home will actually function day to day. Those are the details that separate a good lake home from one you'll never want to leave. It's what led Cedar Lux to become one of Emerald Bay at Cedar Creek Lake's preferred builders — a gated, master-planned community on the deep end of the lake, designed for full-time living.
                    </p>
                 </div>
 
                 <div className="bg-neutral-50 p-8 md:p-12 rounded-[2.5rem] border border-neutral-100">
-                   <h3 className="text-2xl font-bold serif mb-4">Homes Designed for Real Life</h3>
+                   <h3 className="text-2xl font-bold serif mb-4">A Family Business, Built on Detail</h3>
                    <p className="text-neutral-500 leading-relaxed">
-                     Our first spec home at Emerald Bay brings the Cedar Lux vision to life: a spacious, luxury residence that showcases how a thoughtfully crafted home feels and functions on the lake.
+                     Chelsea Payne is co-owner of Cedar Lux and leads the design side of the business, bringing 13+ years of experience to every finish, fixture, and floor plan. Gary gets the home to sheetrock — Chelsea takes it from there. The result is a home where the craftsmanship is felt in every room: foam encapsulation, hardwood floors, smart-home automation, illuminated stair treads, and premium appliances throughout.
                    </p>
                    <blockquote className="my-8 border-l-4 border-luxury-gold pl-6 py-2">
-                      <p className="text-xl font-serif italic text-lake">"Built to the nines."</p>
-                      <footer className="text-sm font-bold uppercase tracking-widest text-neutral-400 mt-2">— Gary Payne</footer>
+                      <p className="text-xl font-serif italic text-lake">"Something I love about Cedar Lux is how meticulous their homes are. They're extremely clean and extremely detailed."</p>
+                      <footer className="text-sm font-bold uppercase tracking-widest text-neutral-400 mt-2">— Donna Smith, Duggan Realty Advisors</footer>
                    </blockquote>
+                   <p className="text-neutral-500 leading-relaxed">
+                     Gary describes every Cedar Lux home simply: built to the nines. And when you walk through one, you'll understand exactly what he means.
+                   </p>
                 </div>
-                
+
                 <div className="text-center pt-8">
                    <button onClick={() => setView('contact')} className="px-12 py-5 bg-lake text-white font-black rounded-full uppercase tracking-[0.2em] text-xs shadow-xl hover:bg-neutral-800 transition-all">Start Your Project With Us</button>
                 </div>
