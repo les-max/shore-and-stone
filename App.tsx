@@ -33,7 +33,7 @@ const App: React.FC = () => {
       try {
         const [{ data: propsData }, { data: settingsData }] = await Promise.all([
           supabase.from('properties').select('*').order('created_at', { ascending: false }),
-          supabase.from('settings').select('data').eq('id', 1).single()
+          supabase.from('settings').select('data').eq('id', 1).maybeSingle()
         ]);
         if (propsData && propsData.length > 0) setProperties(propsData as Property[]);
         if (settingsData?.data) setSettings({ ...DEFAULT_SETTINGS, ...settingsData.data });
