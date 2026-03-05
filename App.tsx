@@ -30,13 +30,18 @@ const App: React.FC = () => {
   // Load data from Supabase on mount
   useEffect(() => {
     const loadData = async () => {
-      const [{ data: propsData }, { data: settingsData }] = await Promise.all([
-        supabase.from('properties').select('*').order('created_at', { ascending: false }),
-        supabase.from('settings').select('data').eq('id', 1).single()
-      ]);
-      if (propsData && propsData.length > 0) setProperties(propsData as Property[]);
-      if (settingsData?.data) setSettings({ ...DEFAULT_SETTINGS, ...settingsData.data });
-      setIsLoading(false);
+      try {
+        const [{ data: propsData }, { data: settingsData }] = await Promise.all([
+          supabase.from('properties').select('*').order('created_at', { ascending: false }),
+          supabase.from('settings').select('data').eq('id', 1).single()
+        ]);
+        if (propsData && propsData.length > 0) setProperties(propsData as Property[]);
+        if (settingsData?.data) setSettings({ ...DEFAULT_SETTINGS, ...settingsData.data });
+      } catch (e) {
+        console.error('Failed to load data from Supabase:', e);
+      } finally {
+        setIsLoading(false);
+      }
     };
     loadData();
   }, []);
