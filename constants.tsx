@@ -53,25 +53,73 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     {
       "id": "1",
       "category": "Dining",
-      "title": "Vetoni's Italian",
-      "description": "Refined Italian cuisine in a white-tablecloth setting, widely considered the lake's premier dining destination.",
-      "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2070",
+      "title": "Boon Dox Resort",
+      "description": "A beloved waterfront destination on Cedar Creek Lake with casual dining, live music, and stunning sunset views from the dock.",
+      "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=2070",
       "isFeatured": true
     },
     {
       "id": "2",
       "category": "Dining",
-      "title": "The Pinnacle Club",
-      "description": "Exclusive member-only dining with panoramic sunset views and a seasonal, Texas-inspired menu.",
+      "title": "The Pinnacle Club Restaurant",
+      "description": "Upscale dining exclusive to members and guests, with panoramic lake views and a seasonal Texas-inspired menu.",
       "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=2070",
-      "isFeatured": true
+      "isFeatured": false
     },
     {
       "id": "3",
+      "category": "Golf",
+      "title": "The Pinnacle Club Golf Course",
+      "description": "An 18-hole championship course winding through the hills above Cedar Creek Lake, offering breathtaking water views on nearly every hole.",
+      "image": "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=2070",
+      "isFeatured": true
+    },
+    {
+      "id": "4",
+      "category": "Golf",
+      "title": "Cedar Creek Golf Course",
+      "description": "A well-maintained public course with beautiful tree-lined fairways and a relaxed atmosphere, perfect for weekend rounds.",
+      "image": "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=2070",
+      "isFeatured": false
+    },
+    {
+      "id": "5",
+      "category": "Marina",
+      "title": "Emerald Bay Marina",
+      "description": "The community marina at Emerald Bay features deep-water slips, fueling stations, and direct access to the best part of the lake.",
+      "image": "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&q=80&w=2070",
+      "isFeatured": true
+    },
+    {
+      "id": "6",
+      "category": "Marina",
+      "title": "Seven Coves Marina",
+      "description": "A full-service marina offering boat rentals, storage, fuel, and repairs — a go-to for boaters on the north end of Cedar Creek Lake.",
+      "image": "https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&q=80&w=2070",
+      "isFeatured": false
+    },
+    {
+      "id": "7",
       "category": "Shopping",
       "title": "Main Street Mabank",
-      "description": "High-end boutiques, antique galleries, and artisan shops curated for luxury lake house decor.",
+      "description": "Charming downtown shopping with local boutiques, antique galleries, and specialty shops just minutes from the lake.",
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=2070",
+      "isFeatured": false
+    },
+    {
+      "id": "8",
+      "category": "Church",
+      "title": "Cedar Creek Community Church",
+      "description": "A welcoming, family-oriented congregation serving the Cedar Creek Lake area with services designed for full-time residents and weekenders alike.",
+      "image": "https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&q=80&w=2070",
+      "isFeatured": false
+    },
+    {
+      "id": "9",
+      "category": "Attraction",
+      "title": "Seven Points Waterfront",
+      "description": "A lively lakeside town with casual waterfront dining, boat rentals, and easy access to the southern shores of Cedar Creek Lake.",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=2070",
       "isFeatured": false
     }
   ],

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Property, PropertyStatus, SiteSettings } from '../types';
-import { Layout, Settings, Edit2, Trash2, X, Sun, LogOut, Plus, Save, CheckCircle, Zap, Star } from 'lucide-react';
+import { Property, PropertyStatus, SiteSettings, LocalSpot } from '../types';
+import { Layout, Settings, Edit2, Trash2, X, Sun, LogOut, Plus, Save, CheckCircle, Zap, Star, MapPin } from 'lucide-react';
 
 interface PropertyAdminProps {
   properties: Property[];
@@ -44,6 +44,32 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
   });
 
   const [tempSettings, setTempSettings] = useState<SiteSettings>(settings);
+  const [isAddingSpot, setIsAddingSpot] = useState(false);
+  const [editingSpot, setEditingSpot] = useState<LocalSpot | null>(null);
+  const [spotForm, setSpotForm] = useState<Partial<LocalSpot>>({ title: '', category: 'Dining', description: '', image: '', isFeatured: false });
+
+  const startEditSpot = (spot: LocalSpot) => {
+    setEditingSpot(spot);
+    setSpotForm({ ...spot });
+    setIsAddingSpot(true);
+  };
+
+  const handleSpotSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editingSpot) {
+      setTempSettings({ ...tempSettings, localSpots: tempSettings.localSpots.map(s => s.id === editingSpot.id ? { ...s, ...spotForm } as LocalSpot : s) });
+    } else {
+      const newSpot: LocalSpot = { ...spotForm as LocalSpot, id: Math.random().toString(36).substr(2, 9) };
+      setTempSettings({ ...tempSettings, localSpots: [...tempSettings.localSpots, newSpot] });
+    }
+    setIsAddingSpot(false);
+    setEditingSpot(null);
+    setSpotForm({ title: '', category: 'Dining', description: '', image: '', isFeatured: false });
+  };
+
+  const deleteSpot = (id: string) => {
+    setTempSettings({ ...tempSettings, localSpots: tempSettings.localSpots.filter(s => s.id !== id) });
+  };
 
   const startEdit = (prop: Property) => {
     setEditingProperty(prop);
@@ -237,6 +263,72 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                     />
                  </div>
                  
+                 <div className="space-y-4 bg-neutral-50 p-8 rounded-3xl border border-neutral-100">
+                    <div className="flex justify-between items-center">
+                       <h4 className="font-bold text-neutral-400 uppercase tracking-widest text-xs">Local Amenities</h4>
+                       {!isAddingSpot && (
+                         <button onClick={() => { setIsAddingSpot(true); setEditingSpot(null); setSpotForm({ title: '', category: 'Dining', description: '', image: '', isFeatured: false }); }} className="bg-lake text-white px-4 py-1.5 rounded-full font-bold text-xs flex items-center gap-1.5">
+                           <Plus size={14} /> Add Spot
+                         </button>
+                       )}
+                    </div>
+                    {isAddingSpot ? (
+                      <form onSubmit={handleSpotSubmit} className="space-y-4 bg-white p-6 rounded-2xl border border-neutral-200">
+                        <div className="flex justify-between items-center">
+                          <h5 className="font-bold text-sm">{editingSpot ? 'Edit Spot' : 'Add Spot'}</h5>
+                          <button type="button" onClick={() => setIsAddingSpot(false)}><X size={18} /></button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-1">
+                            <label className="text-xs font-bold uppercase text-neutral-400">Name</label>
+                            <input className="w-full p-3 border rounded-xl text-sm" value={spotForm.title || ''} onChange={e => setSpotForm({...spotForm, title: e.target.value})} required />
+                          </div>
+                          <div className="space-y-1">
+                            <label className="text-xs font-bold uppercase text-neutral-400">Category</label>
+                            <select className="w-full p-3 border rounded-xl text-sm" value={spotForm.category} onChange={e => setSpotForm({...spotForm, category: e.target.value as LocalSpot['category']})}>
+                              <option>Dining</option>
+                              <option>Golf</option>
+                              <option>Marina</option>
+                              <option>Shopping</option>
+                              <option>Church</option>
+                              <option>Attraction</option>
+                            </select>
+                          </div>
+                          <div className="md:col-span-2 space-y-1">
+                            <label className="text-xs font-bold uppercase text-neutral-400">Image URL</label>
+                            <input className="w-full p-3 border rounded-xl text-sm" value={spotForm.image || ''} onChange={e => setSpotForm({...spotForm, image: e.target.value})} />
+                          </div>
+                          <div className="md:col-span-2 space-y-1">
+                            <label className="text-xs font-bold uppercase text-neutral-400">Description</label>
+                            <textarea className="w-full p-3 border rounded-xl text-sm h-20" value={spotForm.description || ''} onChange={e => setSpotForm({...spotForm, description: e.target.value})} />
+                          </div>
+                        </div>
+                        <div className="flex justify-end gap-3">
+                          <button type="button" onClick={() => setIsAddingSpot(false)} className="px-4 py-2 font-bold text-neutral-500 text-sm">Cancel</button>
+                          <button type="submit" className="bg-luxury-gold text-white px-6 py-2 rounded-full font-bold text-sm">Save</button>
+                        </div>
+                      </form>
+                    ) : (
+                      <div className="space-y-2">
+                        {tempSettings.localSpots.map(spot => (
+                          <div key={spot.id} className="flex items-center justify-between bg-white p-4 rounded-xl border border-neutral-100">
+                            <div className="flex items-center gap-3">
+                              <MapPin size={14} className="text-luxury-gold flex-shrink-0" />
+                              <div>
+                                <p className="font-bold text-sm text-lake">{spot.title}</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">{spot.category}</p>
+                              </div>
+                            </div>
+                            <div className="flex gap-2">
+                              <button onClick={() => startEditSpot(spot)} className="p-2 bg-neutral-50 rounded-lg text-neutral-400 hover:text-lake"><Edit2 size={14}/></button>
+                              <button onClick={() => deleteSpot(spot.id)} className="p-2 bg-neutral-50 rounded-lg text-neutral-400 hover:text-red-500"><Trash2 size={14}/></button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                 </div>
+
                  <div className="space-y-4 bg-neutral-50 p-8 rounded-3xl border border-neutral-100">
                     <h4 className="font-bold text-neutral-400 uppercase tracking-widest text-xs">Home Page Teaser</h4>
                     <input 

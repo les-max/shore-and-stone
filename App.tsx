@@ -26,6 +26,7 @@ const App: React.FC = () => {
   const [loginError, setLoginError] = useState(false);
 
   const [filterStatus, setFilterStatus] = useState<string>('All');
+  const [lifestyleFilter, setLifestyleFilter] = useState<string>('All');
 
   // Load data from Supabase on mount
   useEffect(() => {
@@ -313,6 +314,51 @@ const App: React.FC = () => {
                 <div className="flex-1 w-full h-[400px] bg-neutral-100 rounded-[3rem] overflow-hidden border border-neutral-100">
                    <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=80&w=2070" className="w-full h-full object-cover opacity-80" alt="Dallas Lake Life" />
                 </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="py-32 bg-neutral-50">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <span className="text-xs font-bold uppercase tracking-[0.4em] text-luxury-gold mb-4 block">The Area</span>
+                <h2 className="text-5xl font-bold serif italic mb-4">Life Around the Lake</h2>
+                <p className="text-neutral-500 max-w-2xl mx-auto text-lg">From waterfront dining to championship golf, Cedar Creek Lake offers everything you need within minutes of your front door.</p>
+              </div>
+
+              <div className="flex flex-wrap gap-3 justify-center mb-12">
+                {['All', 'Dining', 'Golf', 'Marina', 'Shopping', 'Church', 'Attraction'].map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setLifestyleFilter(cat)}
+                    className={`px-6 py-2 rounded-full font-bold text-sm transition-all ${lifestyleFilter === cat ? 'bg-lake text-white' : 'bg-white text-neutral-500 hover:bg-neutral-100 border border-neutral-200'}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {(lifestyleFilter === 'All' ? settings.localSpots : settings.localSpots.filter(s => s.category === lifestyleFilter)).map(spot => (
+                  <div key={spot.id} className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="relative h-52">
+                      <img src={spot.image} className="w-full h-full object-cover" alt={spot.title} />
+                      <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-lake text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                        {spot.category === 'Dining' && <Utensils size={10} />}
+                        {spot.category === 'Shopping' && <ShoppingBag size={10} />}
+                        {spot.category === 'Golf' && <Flag size={10} />}
+                        {spot.category === 'Marina' && <Anchor size={10} />}
+                        {spot.category === 'Church' && <MapPin size={10} />}
+                        {spot.category === 'Attraction' && <Star size={10} />}
+                        {spot.category}
+                      </span>
+                    </div>
+                    <div className="p-7">
+                      <h3 className="text-xl font-bold serif italic text-lake mb-2">{spot.title}</h3>
+                      <p className="text-neutral-500 text-sm leading-relaxed">{spot.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </section>

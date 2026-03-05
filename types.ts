@@ -29,7 +29,7 @@ export interface Activity {
 
 export interface LocalSpot {
   id: string;
-  category: 'Dining' | 'Shopping' | 'Attraction';
+  category: 'Dining' | 'Shopping' | 'Attraction' | 'Golf' | 'Marina' | 'Church';
   title: string;
   description: string;
   image: string;
