@@ -6,11 +6,11 @@ import { PropertyCard } from './components/PropertyCard';
 import { PropertyAdmin } from './components/PropertyAdmin';
 import { PropertyDetailsModal } from './components/PropertyDetailsModal';
 import { ContactForm } from './components/ContactForm';
-import { 
-  Menu, X, LayoutDashboard, 
-  ArrowRight, Quote, Search, ChevronLeft, 
-  Waves, Flag, Users, ShoppingBag, Utensils, Anchor, MapPin, 
-  Sun, Coffee, Star, Instagram, Facebook, Phone, Mail
+import {
+  Menu, X, LayoutDashboard,
+  ArrowRight, Quote, Search, ChevronLeft,
+  Waves, Flag, Users, ShoppingBag, Utensils, Anchor, MapPin,
+  Sun, Coffee, Star, Instagram, Facebook, Phone, Mail, ExternalLink
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -473,12 +473,24 @@ const App: React.FC = () => {
                       <span>{featured.sqft.toLocaleString()} SqFt</span>
                     </div>
                     <p className="text-2xl font-black text-lake mb-8">${featured.price.toLocaleString()}</p>
-                    <button
-                      onClick={() => setSelectedProperty(featured)}
-                      className="self-start px-10 py-4 bg-lake text-white font-bold rounded-full hover:bg-neutral-800 transition-all uppercase tracking-widest text-xs"
-                    >
-                      View Details
-                    </button>
+                    <div className="flex flex-wrap gap-3">
+                      <button
+                        onClick={() => setSelectedProperty(featured)}
+                        className="px-10 py-4 bg-lake text-white font-bold rounded-full hover:bg-neutral-800 transition-all uppercase tracking-widest text-xs"
+                      >
+                        View Details
+                      </button>
+                      {featured.listingUrl && (
+                        <a
+                          href={featured.listingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-10 py-4 bg-luxury-gold text-white font-bold rounded-full hover:bg-amber-600 transition-all uppercase tracking-widest text-xs flex items-center gap-2"
+                        >
+                          See the Listing <ExternalLink size={14} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               );

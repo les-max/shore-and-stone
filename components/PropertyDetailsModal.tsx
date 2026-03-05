@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Property } from '../types';
-import { X, Bed, Bath, Move, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
+import { X, Bed, Bath, Move, ChevronLeft, ChevronRight, MessageSquare, ExternalLink } from 'lucide-react';
 
 interface PropertyDetailsModalProps {
   property: Property;
@@ -70,9 +70,19 @@ export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ prop
               <p className="text-neutral-500 leading-relaxed text-lg font-light">{property.description}</p>
             </div>
             
-            <button 
+            {property.listingUrl && (
+              <a
+                href={property.listingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-5 bg-luxury-gold text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-amber-600 transition-all flex items-center justify-center gap-3 mt-8"
+              >
+                See the Listing <ExternalLink size={16} />
+              </a>
+            )}
+            <button
               onClick={onInquire}
-              className="w-full py-5 bg-lake text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-neutral-800 transition-all flex items-center justify-center gap-3 mt-8"
+              className="w-full py-5 bg-lake text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-neutral-800 transition-all flex items-center justify-center gap-3 mt-4"
             >
               Inquire About This Property <MessageSquare size={16} />
             </button>

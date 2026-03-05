@@ -16,6 +16,7 @@ export interface Property {
   features: string[];
   address?: string;
   isFeatured?: boolean;
+  listingUrl?: string;
   created_at?: string;
 }
 

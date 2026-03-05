@@ -153,6 +153,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     "features": [],
     "address": "217 Autumn Wood Trail, Mabank, TX 75147",
     "isFeatured": false,
+    "listingUrl": "",
     "id": "l7obcxluo"
   }
 ];

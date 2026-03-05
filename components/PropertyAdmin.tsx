@@ -40,8 +40,10 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
     neighborhood: settings.neighborhoods[0] || 'Cedar Creek Lake',
     features: [],
     address: '',
-    isFeatured: false
+    isFeatured: false,
+    listingUrl: ''
   });
+  const [newGalleryUrl, setNewGalleryUrl] = useState('');
 
   const [tempSettings, setTempSettings] = useState<SiteSettings>(settings);
   const [isAddingSpot, setIsAddingSpot] = useState(false);
@@ -74,6 +76,7 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
   const startEdit = (prop: Property) => {
     setEditingProperty(prop);
     setFormData({ ...prop, gallery: prop.gallery || [] });
+    setNewGalleryUrl('');
     setIsAdding(true);
   };
 
@@ -166,8 +169,8 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                           <input type="number" className="w-full p-3 border rounded-xl" value={formData.price} onChange={e => setFormData({...formData, price: Number(e.target.value)})} required />
                        </div>
                        <div className="space-y-2">
-                          <label className="text-xs font-bold uppercase text-neutral-400">Main Image URL</label>
-                          <input className="w-full p-3 border rounded-xl" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} required />
+                          <label className="text-xs font-bold uppercase text-neutral-400">Listing URL ("See the Listing" button)</label>
+                          <input className="w-full p-3 border rounded-xl" placeholder="https://zillow.com/..." value={formData.listingUrl || ''} onChange={e => setFormData({...formData, listingUrl: e.target.value})} />
                        </div>
                        <div className="space-y-2">
                           <label className="text-xs font-bold uppercase text-neutral-400">Status</label>
@@ -194,6 +197,91 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                        <label className="text-xs font-bold uppercase text-neutral-400">Description</label>
                        <textarea className="w-full p-3 border rounded-xl h-32" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} />
                     </div>
+
+                    {/* Photo Management */}
+                    <div className="space-y-3">
+                       <label className="text-xs font-bold uppercase text-neutral-400">Photos</label>
+
+                       {/* Key Photo */}
+                       <div className="bg-white border border-neutral-200 rounded-xl p-4 space-y-2">
+                          <p className="text-xs font-bold uppercase tracking-wider text-luxury-gold flex items-center gap-1.5">
+                            <Star size={12} fill="currentColor" /> Key Photo (shown on listing card)
+                          </p>
+                          <div className="flex gap-3 items-center">
+                            {formData.image && (
+                              <img src={formData.image} className="w-20 h-14 object-cover rounded-lg flex-shrink-0 border border-neutral-100" alt="Key" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                            )}
+                            <input
+                              className="flex-1 p-3 border rounded-xl text-sm"
+                              placeholder="https://..."
+                              value={formData.image || ''}
+                              onChange={e => setFormData({...formData, image: e.target.value})}
+                              required
+                            />
+                          </div>
+                       </div>
+
+                       {/* Gallery Photos */}
+                       <div className="bg-white border border-neutral-200 rounded-xl p-4 space-y-3">
+                          <p className="text-xs font-bold uppercase tracking-wider text-neutral-400">Gallery Photos (shown in detail view)</p>
+                          {(formData.gallery || []).map((url, idx) => (
+                            <div key={idx} className="flex gap-3 items-center">
+                              <img src={url} className="w-14 h-10 object-cover rounded-lg flex-shrink-0 border border-neutral-100" alt="" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                              <span className="flex-1 text-xs text-neutral-500 truncate font-mono">{url}</span>
+                              <button
+                                type="button"
+                                title="Set as key photo"
+                                onClick={() => {
+                                  const oldKey = formData.image || '';
+                                  const newGallery = (formData.gallery || []).filter((_, i) => i !== idx);
+                                  if (oldKey) newGallery.splice(idx, 0, oldKey);
+                                  setFormData({...formData, image: url, gallery: newGallery});
+                                }}
+                                className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-luxury-gold border border-luxury-gold rounded-full hover:bg-luxury-gold hover:text-white transition-all flex-shrink-0"
+                              >
+                                Set Key
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setFormData({...formData, gallery: (formData.gallery || []).filter((_, i) => i !== idx)})}
+                                className="p-1.5 text-neutral-300 hover:text-red-500 transition-colors flex-shrink-0"
+                              >
+                                <X size={16} />
+                              </button>
+                            </div>
+                          ))}
+                          <div className="flex gap-2 pt-2 border-t border-neutral-100">
+                            <input
+                              className="flex-1 p-3 border rounded-xl text-sm"
+                              placeholder="Add photo URL..."
+                              value={newGalleryUrl}
+                              onChange={e => setNewGalleryUrl(e.target.value)}
+                              onKeyDown={e => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  if (newGalleryUrl.trim()) {
+                                    setFormData({...formData, gallery: [...(formData.gallery || []), newGalleryUrl.trim()]});
+                                    setNewGalleryUrl('');
+                                  }
+                                }
+                              }}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (newGalleryUrl.trim()) {
+                                  setFormData({...formData, gallery: [...(formData.gallery || []), newGalleryUrl.trim()]});
+                                  setNewGalleryUrl('');
+                                }
+                              }}
+                              className="px-4 py-2 bg-lake text-white rounded-xl font-bold text-sm flex items-center gap-1.5 flex-shrink-0"
+                            >
+                              <Plus size={16} /> Add
+                            </button>
+                          </div>
+                       </div>
+                    </div>
+
                     <label className="flex items-center gap-3 cursor-pointer select-none bg-neutral-100 p-4 rounded-xl w-fit">
                        <div className={`w-10 h-6 rounded-full transition-colors flex items-center ${formData.isFeatured ? 'bg-luxury-gold' : 'bg-neutral-300'}`}>
                           <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform mx-1 ${formData.isFeatured ? 'translate-x-4' : 'translate-x-0'}`} />
