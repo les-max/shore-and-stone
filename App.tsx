@@ -341,6 +341,42 @@ const App: React.FC = () => {
                </div>
             </div>
             
+            {(() => {
+              const featured = properties.find(p => p.isFeatured);
+              if (!featured) return null;
+              return (
+                <div className="mb-16 rounded-[2.5rem] overflow-hidden border border-neutral-200 shadow-lg flex flex-col md:flex-row">
+                  <div className="md:w-1/2 h-72 md:h-auto relative">
+                    <img src={featured.image} className="w-full h-full object-cover" alt={featured.title} />
+                    <div className="absolute top-6 left-6">
+                      <span className="flex items-center gap-2 bg-luxury-gold text-white text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-full shadow">
+                        <Star size={12} fill="white" /> Featured Home
+                      </span>
+                    </div>
+                  </div>
+                  <div className="md:w-1/2 bg-white p-10 md:p-14 flex flex-col justify-center">
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold mb-3">{featured.neighborhood}</p>
+                    <h2 className="text-3xl md:text-4xl font-bold serif italic text-lake mb-2">{featured.title}</h2>
+                    {featured.address && <p className="text-neutral-400 text-sm font-medium mb-6">{featured.address}</p>}
+                    <div className="flex gap-6 mb-8 text-sm font-bold text-neutral-600">
+                      <span>{featured.beds} Beds</span>
+                      <span className="text-neutral-200">|</span>
+                      <span>{featured.baths} Baths</span>
+                      <span className="text-neutral-200">|</span>
+                      <span>{featured.sqft.toLocaleString()} SqFt</span>
+                    </div>
+                    <p className="text-2xl font-black text-lake mb-8">${featured.price.toLocaleString()}</p>
+                    <button
+                      onClick={() => setSelectedProperty(featured)}
+                      className="self-start px-10 py-4 bg-lake text-white font-bold rounded-full hover:bg-neutral-800 transition-all uppercase tracking-widest text-xs"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              );
+            })()}
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {filteredProperties.length > 0 ? (
                 filteredProperties.map(property => (

@@ -14,6 +14,8 @@ export interface Property {
   status: PropertyStatus;
   neighborhood: string;
   features: string[];
+  address?: string;
+  isFeatured?: boolean;
   created_at?: string;
 }
 

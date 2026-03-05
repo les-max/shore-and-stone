@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Property, PropertyStatus, SiteSettings } from '../types';
-import { Layout, Settings, Edit2, Trash2, X, Sun, LogOut, Plus, Save, CheckCircle, Zap } from 'lucide-react';
+import { Layout, Settings, Edit2, Trash2, X, Sun, LogOut, Plus, Save, CheckCircle, Zap, Star } from 'lucide-react';
 
 interface PropertyAdminProps {
   properties: Property[];
@@ -38,7 +38,9 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
     gallery: [],
     status: 'Available',
     neighborhood: settings.neighborhoods[0] || 'Cedar Creek Lake',
-    features: []
+    features: [],
+    address: '',
+    isFeatured: false
   });
 
   const [tempSettings, setTempSettings] = useState<SiteSettings>(settings);
@@ -130,6 +132,10 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                           <input className="w-full p-3 border rounded-xl" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
                        </div>
                        <div className="space-y-2">
+                          <label className="text-xs font-bold uppercase text-neutral-400">Address</label>
+                          <input className="w-full p-3 border rounded-xl" placeholder="123 Lakeview Dr, Mabank, TX" value={formData.address || ''} onChange={e => setFormData({...formData, address: e.target.value})} />
+                       </div>
+                       <div className="space-y-2">
                           <label className="text-xs font-bold uppercase text-neutral-400">Price (USD)</label>
                           <input type="number" className="w-full p-3 border rounded-xl" value={formData.price} onChange={e => setFormData({...formData, price: Number(e.target.value)})} required />
                        </div>
@@ -162,6 +168,14 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                        <label className="text-xs font-bold uppercase text-neutral-400">Description</label>
                        <textarea className="w-full p-3 border rounded-xl h-32" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} />
                     </div>
+                    <label className="flex items-center gap-3 cursor-pointer select-none bg-neutral-100 p-4 rounded-xl w-fit">
+                       <div className={`w-10 h-6 rounded-full transition-colors flex items-center ${formData.isFeatured ? 'bg-luxury-gold' : 'bg-neutral-300'}`}>
+                          <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform mx-1 ${formData.isFeatured ? 'translate-x-4' : 'translate-x-0'}`} />
+                       </div>
+                       <input type="checkbox" className="sr-only" checked={!!formData.isFeatured} onChange={e => setFormData({...formData, isFeatured: e.target.checked})} />
+                       <Star size={16} className={formData.isFeatured ? 'text-luxury-gold' : 'text-neutral-400'} />
+                       <span className="text-sm font-bold">Mark as Featured Home</span>
+                    </label>
                     <div className="flex justify-end gap-4">
                        <button type="button" onClick={() => setIsAdding(false)} className="px-6 py-2 font-bold text-neutral-500">Cancel</button>
                        <button type="submit" className="bg-luxury-gold text-white px-8 py-2 rounded-full font-bold">Save Listing</button>
@@ -174,7 +188,10 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                          <div className="flex items-center gap-6">
                             <img src={p.image} className="w-20 h-16 object-cover rounded-xl" alt="" />
                             <div>
-                               <h4 className="font-bold text-lake">{p.title}</h4>
+                               <div className="flex items-center gap-2">
+                                 <h4 className="font-bold text-lake">{p.title}</h4>
+                                 {p.isFeatured && <span className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-luxury-gold"><Star size={10} fill="currentColor" /> Featured</span>}
+                              </div>
                                <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider">{p.beds} Beds • {p.baths} Baths • {p.status}</p>
                             </div>
                          </div>

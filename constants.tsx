@@ -102,6 +102,8 @@ export const INITIAL_PROPERTIES: Property[] = [
     "status": "Available",
     "neighborhood": "Long Cove",
     "features": [],
+    "address": "217 Autumn Wood Trail, Mabank, TX 75147",
+    "isFeatured": false,
     "id": "l7obcxluo"
   }
 ];
