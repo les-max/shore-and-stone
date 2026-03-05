@@ -5,9 +5,11 @@ interface ContactFormProps {
   webhookUrl: string;
   companyName: string;
   prefillMessage?: string;
+  highlevelToken?: string;
+  highlevelLocationId?: string;
 }
 
-export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyName, prefillMessage }) => {
+export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyName, prefillMessage, highlevelToken, highlevelLocationId }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,7 +21,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!webhookUrl) {
+    const useHighLevel = highlevelToken && highlevelLocationId;
+    if (!useHighLevel && !webhookUrl) {
       setStatus('error');
       setErrorMessage('Form submission is currently unavailable. Please contact us via phone.');
       return;
@@ -27,25 +30,64 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
 
     setStatus('submitting');
     try {
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          source: 'Website Contact Form',
-          submittedAt: new Date().toISOString(),
-          company: companyName
-        }),
-      });
+      if (useHighLevel) {
+        // Split name into first/last for HighLevel contact fields
+        const nameParts = formData.name.trim().split(/\s+/);
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
 
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', phone: '', message: '' });
+        // Create contact in HighLevel
+        const contactRes = await fetch('https://services.leadconnectorhq.com/contacts/', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${highlevelToken}`,
+            'Content-Type': 'application/json',
+            'Version': '2021-07-28',
+          },
+          body: JSON.stringify({
+            locationId: highlevelLocationId,
+            firstName,
+            lastName,
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            source: companyName,
+          }),
+        });
+
+        if (!contactRes.ok) throw new Error('HighLevel contact creation failed');
+
+        // If a message was included, add it as a note on the contact
+        if (formData.message) {
+          const { contact } = await contactRes.json();
+          if (contact?.id) {
+            await fetch(`https://services.leadconnectorhq.com/contacts/${contact.id}/notes`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${highlevelToken}`,
+                'Content-Type': 'application/json',
+                'Version': '2021-07-28',
+              },
+              body: JSON.stringify({ body: formData.message, userId: contact.id }),
+            });
+          }
+        }
       } else {
-        throw new Error('Failed to send message');
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...formData,
+            source: 'Website Contact Form',
+            submittedAt: new Date().toISOString(),
+            company: companyName
+          }),
+        });
+        if (!response.ok) throw new Error('Failed to send message');
       }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
       setStatus('error');
       setErrorMessage('Something went wrong. Please try again or call us directly.');

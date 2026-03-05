@@ -496,14 +496,35 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                         </div>
                         <div className="space-y-4">
                             <div className="space-y-2">
-                                <label className="text-xs font-bold uppercase text-neutral-400">Lead Webhook URL (Zapier, Make.com, etc.)</label>
-                                <input 
-                                    className="w-full p-3 border rounded-xl font-mono text-sm" 
-                                    value={tempSettings.webhookUrl} 
+                                <label className="text-xs font-bold uppercase text-neutral-400">HighLevel Private Integration Token</label>
+                                <input
+                                    type="password"
+                                    className="w-full p-3 border rounded-xl font-mono text-sm"
+                                    value={tempSettings.highlevelToken || ''}
+                                    onChange={e => setTempSettings({...tempSettings, highlevelToken: e.target.value})}
+                                    placeholder="eyJhbGci..."
+                                />
+                                <p className="text-[10px] text-neutral-400">When set, form submissions will create contacts directly in HighLevel via the API.</p>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase text-neutral-400">HighLevel Location ID</label>
+                                <input
+                                    className="w-full p-3 border rounded-xl font-mono text-sm"
+                                    value={tempSettings.highlevelLocationId || ''}
+                                    onChange={e => setTempSettings({...tempSettings, highlevelLocationId: e.target.value})}
+                                    placeholder="ve9EPM428h8vShlRW1KT"
+                                />
+                                <p className="text-[10px] text-neutral-400">Found in HighLevel under Settings → Business Info → Location ID.</p>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase text-neutral-400">Fallback Webhook URL (Zapier, Make.com, etc.)</label>
+                                <input
+                                    className="w-full p-3 border rounded-xl font-mono text-sm"
+                                    value={tempSettings.webhookUrl}
                                     onChange={e => setTempSettings({...tempSettings, webhookUrl: e.target.value})}
                                     placeholder="https://hooks.zapier.com/v1/event/..."
                                 />
-                                <p className="text-[10px] text-neutral-400">Form inquiries will be sent as a POST request to this URL with JSON data.</p>
+                                <p className="text-[10px] text-neutral-400">Used only if HighLevel token is not set.</p>
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase text-neutral-400">Header Scripts (Analytics, Pixel, etc.)</label>

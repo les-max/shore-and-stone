@@ -68,6 +68,8 @@ export interface SiteSettings {
   // Integrations
   externalScripts: string;
   webhookUrl: string;
+  highlevelToken: string;
+  highlevelLocationId: string;
 }
 
 export interface ChatMessage {

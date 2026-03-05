@@ -135,7 +135,9 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   "address": "Mabank, TX 75147",
   "socialImage": "https://photos.zillowstatic.com/fp/478eb995b712eb79af80c59ea8f527ba-uncropped_scaled_within_1536_1152.webp",
   "externalScripts": "",
-  "webhookUrl": ""
+  "webhookUrl": "",
+  "highlevelToken": "",
+  "highlevelLocationId": ""
 };
 
 export const INITIAL_PROPERTIES: Property[] = [

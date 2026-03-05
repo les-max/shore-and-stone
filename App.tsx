@@ -557,9 +557,11 @@ const App: React.FC = () => {
                   </div>
                </div>
 
-               <ContactForm 
-                webhookUrl={settings.webhookUrl} 
+               <ContactForm
+                webhookUrl={settings.webhookUrl}
                 companyName={settings.companyName}
+                highlevelToken={settings.highlevelToken}
+                highlevelLocationId={settings.highlevelLocationId}
                />
             </div>
           </div>
