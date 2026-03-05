@@ -10,7 +10,7 @@ interface PropertyDetailsModalProps {
 
 export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ property, onClose, onInquire }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.image];
+  const images = [property.image, ...(property.gallery || [])].filter(Boolean) as string[];
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -27,7 +27,8 @@ export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ prop
         <button onClick={onClose} className="absolute top-6 right-6 z-10 p-2 bg-neutral-100 rounded-full hover:bg-neutral-200 transition-colors">
           <X size={24} />
         </button>
-        <div className="relative w-full md:w-3/5 bg-neutral-900 overflow-hidden">
+        <div className="w-full md:w-3/5 bg-neutral-900 flex flex-col overflow-hidden">
+          <div className="relative flex-1 overflow-hidden">
             <img src={images[activeImageIndex]} className="w-full h-full object-cover" alt={property.title} />
             {images.length > 1 && (
               <>
@@ -37,8 +38,25 @@ export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ prop
                 <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/30 rounded-full text-white hover:bg-black/50 transition-all">
                   <ChevronRight size={24} />
                 </button>
+                <div className="absolute bottom-4 right-4 bg-black/50 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  {activeImageIndex + 1} / {images.length}
+                </div>
               </>
             )}
+          </div>
+          {images.length > 1 && (
+            <div className="flex gap-2 p-3 overflow-x-auto scrollbar-hide bg-neutral-900/80">
+              {images.map((url, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveImageIndex(idx)}
+                  className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${idx === activeImageIndex ? 'border-luxury-gold opacity-100' : 'border-transparent opacity-50 hover:opacity-80'}`}
+                >
+                  <img src={url} className="w-full h-full object-cover" alt={`Photo ${idx + 1}`} />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex-1 overflow-y-auto p-8 md:p-12">
           <div className="flex justify-between items-start mb-4">
