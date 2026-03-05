@@ -241,7 +241,7 @@ const App: React.FC = () => {
         <main className="flex-1">
            <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0">
-              <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover brightness-[0.5]" alt="About Cedar Lux" />
+              <img src="https://media.vrbo.com/lodging/70000000/69560000/69553700/69553620/9b3ca718.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" className="w-full h-full object-cover brightness-[0.5]" alt="About Cedar Lux" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
             </div>
             <div className="relative z-10 text-center text-white px-6">
