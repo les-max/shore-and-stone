@@ -290,40 +290,81 @@ const App: React.FC = () => {
 
       {view === 'lifestyle' && (
         <main className="flex-1">
-          <section className="relative h-[80vh] flex items-center justify-center text-center overflow-hidden">
+
+          {/* Hero — image anchored, text at bottom-left */}
+          <section className="relative h-screen min-h-[700px] flex items-end overflow-hidden">
             <div className="absolute inset-0">
-              <img src={settings.lifestyleHeroImage} className="w-full h-full object-cover brightness-[0.4]" alt="Lifestyle" />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-neutral-50/10"></div>
+              <img src={settings.lifestyleHeroImage} className="w-full h-full object-cover object-center" alt="Lifestyle" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             </div>
-            <div className="relative z-10 text-white max-w-4xl px-6">
-              <span className="text-xs font-bold uppercase tracking-[0.5em] text-luxury-gold mb-6 block">The Experience</span>
-              <h1 className="text-5xl md:text-8xl font-medium serif italic mb-8">{settings.lifestyleHeroHeadline}</h1>
-              <p className="text-xl md:text-2xl text-neutral-300 font-light leading-relaxed">{settings.lifestyleHeroSubheadline}</p>
+            <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20 w-full">
+              <span className="text-xs font-bold uppercase tracking-[0.5em] text-luxury-gold mb-5 block">Cedar Creek Lake</span>
+              <h1 className="text-6xl md:text-8xl font-medium serif italic text-white mb-6 max-w-4xl leading-[1.05]">{settings.lifestyleHeroHeadline}</h1>
+              <p className="text-lg md:text-xl text-neutral-300 font-light max-w-2xl leading-relaxed">{settings.lifestyleHeroSubheadline}</p>
             </div>
           </section>
-          
-          <section className="py-32 bg-white overflow-hidden">
+
+          {/* Key highlights strip */}
+          <section className="bg-lake py-10">
             <div className="max-w-7xl mx-auto px-6">
-              <div className="flex flex-col md:flex-row items-center gap-16">
-                <div className="flex-1">
-                  <h2 className="text-4xl md:text-5xl font-bold serif italic mb-6">The Best of Both Worlds</h2>
-                  <p className="text-neutral-500 text-lg leading-relaxed mb-8">
-                    Located just 60 minutes from the Dallas metroplex, Cedar Creek Lake is the premier sanctuary for the city's most discerning families.
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                {[
+                  { value: '60', unit: 'min', label: 'From Dallas' },
+                  { value: 'Deep', unit: '', label: 'Water Lake' },
+                  { value: 'Gated', unit: '', label: 'Master-Planned' },
+                  { value: '18', unit: 'hole', label: 'Golf Access' },
+                ].map(stat => (
+                  <div key={stat.label}>
+                    <p className="text-luxury-gold font-black mb-1">
+                      <span className="text-3xl">{stat.value}</span>
+                      {stat.unit && <span className="text-base ml-1 font-bold">{stat.unit}</span>}
+                    </p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Editorial: The Lake Life */}
+          <section className="py-32 bg-white">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-[0.4em] text-luxury-gold mb-6 block">The Location</span>
+                  <h2 className="text-5xl font-bold serif italic mb-8 leading-tight text-lake">More Than a Weekend.<br />A Way of Life.</h2>
+                  <p className="text-neutral-500 text-lg leading-relaxed mb-6">
+                    Cedar Creek Lake sits just 60 minutes southeast of Dallas — close enough for a Friday afternoon escape, far enough to feel like a world away. With deep, clean water and a growing community of full-time residents, it has become the destination of choice for families who want more than a vacation home.
                   </p>
+                  <p className="text-neutral-500 text-lg leading-relaxed mb-10">
+                    Emerald Bay at Cedar Creek Lake brings together the best of both: gated privacy, deep-water access, championship golf, and infrastructure built for year-round living.
+                  </p>
+                  <button onClick={() => setView('contact')} className="px-10 py-4 border-2 border-lake text-lake font-bold rounded-full hover:bg-lake hover:text-white transition-all uppercase tracking-widest text-xs">
+                    Start the Conversation
+                  </button>
                 </div>
-                <div className="flex-1 w-full h-[400px] bg-neutral-100 rounded-[3rem] overflow-hidden border border-neutral-100">
-                   <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=80&w=2070" className="w-full h-full object-cover opacity-80" alt="Dallas Lake Life" />
+                <div className="relative">
+                  <img
+                    src={settings.lifestyleImage}
+                    className="rounded-[2.5rem] w-full h-[560px] object-cover shadow-2xl"
+                    alt="Lake Life"
+                  />
+                  <div className="absolute -bottom-8 -left-8 bg-luxury-gold text-white p-8 rounded-2xl hidden lg:block max-w-[260px] shadow-xl">
+                    <p className="text-lg font-bold serif italic leading-snug mb-3">"{settings.lifestyleQuote}"</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-white/70">— {settings.lifestyleQuoteAuthor}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
+          {/* Life Around the Lake — filterable amenity cards */}
           <section className="py-32 bg-neutral-50">
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
                 <span className="text-xs font-bold uppercase tracking-[0.4em] text-luxury-gold mb-4 block">The Area</span>
                 <h2 className="text-5xl font-bold serif italic mb-4">Life Around the Lake</h2>
-                <p className="text-neutral-500 max-w-2xl mx-auto text-lg">From waterfront dining to championship golf, Cedar Creek Lake offers everything you need within minutes of your front door.</p>
+                <p className="text-neutral-500 max-w-2xl mx-auto text-lg">From waterfront dining to championship golf, everything you need is within minutes of your front door.</p>
               </div>
 
               <div className="flex flex-wrap gap-3 justify-center mb-12">
@@ -340,9 +381,9 @@ const App: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {(lifestyleFilter === 'All' ? settings.localSpots : settings.localSpots.filter(s => s.category === lifestyleFilter)).map(spot => (
-                  <div key={spot.id} className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="relative h-52">
-                      <img src={spot.image} className="w-full h-full object-cover" alt={spot.title} />
+                  <div key={spot.id} className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div className="relative h-52 overflow-hidden">
+                      <img src={spot.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={spot.title} />
                       <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-lake text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1.5">
                         {spot.category === 'Dining' && <Utensils size={10} />}
                         {spot.category === 'Shopping' && <ShoppingBag size={10} />}
@@ -362,6 +403,7 @@ const App: React.FC = () => {
               </div>
             </div>
           </section>
+
         </main>
       )}
 

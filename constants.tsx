@@ -6,7 +6,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   "heroHeadline": "Crafting Legacies on the Waterfront.",
   "heroSubheadline": "Bespoke architectural masterpieces designed for those who demand the pinnacle of Cedar Creek Lake living.",
   "companyName": "Cedar Lux Properties",
-  "lifestyleHeroImage": "https://images.unsplash.com/photo-1526495124232-a02e18491103?auto=format&fit=crop&q=80&w=2070",
+  "lifestyleHeroImage": "https://texas.twoguyswhogolf.com/reviews/cedarcreek/Cedar_Creek_0143wa3.jpg",
   "lifestyleHeroHeadline": "Texas' Premier Waterfront Sanctuary",
   "lifestyleHeroSubheadline": "The perfect balance of adrenaline-fueled adventure and serene lakeside tranquility, just 60 minutes from Dallas.",
   "lifestyleHeadline": "Elevate Your Lakeside Living.",
