@@ -1,52 +1,33 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
+const HL_BASE = 'https://services.leadconnectorhq.com';
+const HL_VERSION = '2021-07-28';
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, phone, message, companyName, highlevelToken, highlevelLocationId, highlevelMessageFieldKey } = req.body;
+  const { name, email, phone, message, companyName, highlevelToken, highlevelLocationId } = req.body;
 
   if (!highlevelToken || !highlevelLocationId) {
     return res.status(400).json({ error: 'Missing HighLevel credentials' });
   }
 
+  const headers = {
+    'Authorization': `Bearer ${highlevelToken}`,
+    'Content-Type': 'application/json',
+    'Version': HL_VERSION,
+  };
+
   const nameParts = (name || '').trim().split(/\s+/);
   const firstName = nameParts[0] || '';
   const lastName = nameParts.slice(1).join(' ') || '';
 
-  // Resolve field key to UUID
-  let customFields: { id: string; field_value: string }[] = [];
-  if (message && highlevelMessageFieldKey) {
-    try {
-      const fieldsRes = await fetch(`https://services.leadconnectorhq.com/locations/${highlevelLocationId}/customFields`, {
-        headers: {
-          'Authorization': `Bearer ${highlevelToken}`,
-          'Version': '2021-07-28',
-        },
-      });
-      if (fieldsRes.ok) {
-        const fieldsData = await fieldsRes.json();
-        const fields = fieldsData.customFields || fieldsData.data || [];
-        const match = fields.find((f: { id: string; fieldKey?: string; key?: string }) =>
-          f.fieldKey === highlevelMessageFieldKey || f.key === highlevelMessageFieldKey
-        );
-        if (match?.id) {
-          customFields = [{ id: match.id, field_value: message }];
-        }
-      }
-    } catch {
-      // proceed without custom field
-    }
-  }
-
-  const contactRes = await fetch('https://services.leadconnectorhq.com/contacts/', {
+  // Create (or upsert) the contact
+  const contactRes = await fetch(`${HL_BASE}/contacts/upsert`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${highlevelToken}`,
-      'Content-Type': 'application/json',
-      'Version': '2021-07-28',
-    },
+    headers,
     body: JSON.stringify({
       locationId: highlevelLocationId,
       firstName,
@@ -56,13 +37,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       phone,
       source: companyName,
       tags: ['web_inquiry'],
-      ...(customFields.length > 0 && { customFields }),
     }),
   });
 
   if (!contactRes.ok) {
     const errorBody = await contactRes.text();
     return res.status(contactRes.status).json({ error: 'HighLevel contact creation failed', detail: errorBody });
+  }
+
+  const contactData = await contactRes.json();
+  const contactId = contactData?.contact?.id;
+
+  // Attach the message as a note so it's always visible in HighLevel
+  if (message && contactId) {
+    await fetch(`${HL_BASE}/contacts/${contactId}/notes`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ body: message }),
+    });
   }
 
   return res.status(200).json({ success: true });

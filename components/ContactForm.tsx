@@ -40,7 +40,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
             companyName,
             highlevelToken,
             highlevelLocationId,
-            highlevelMessageFieldKey,
           }),
         });
 
