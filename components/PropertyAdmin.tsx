@@ -517,14 +517,14 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                                 <p className="text-[10px] text-neutral-400">Found in HighLevel under Settings → Business Info → Location ID.</p>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-bold uppercase text-neutral-400">HighLevel Message Field ID</label>
+                                <label className="text-xs font-bold uppercase text-neutral-400">HighLevel Message Field Key</label>
                                 <input
                                     className="w-full p-3 border rounded-xl font-mono text-sm"
                                     value={tempSettings.highlevelMessageFieldKey || ''}
                                     onChange={e => setTempSettings({...tempSettings, highlevelMessageFieldKey: e.target.value})}
-                                    placeholder="6dvNaf7VhkQ9snc5vnjJ"
+                                    placeholder="contact.web_inquiry"
                                 />
-                                <p className="text-[10px] text-neutral-400">In HighLevel: Settings → Custom Fields → create a Text field → click the field to edit it → copy the UUID from the page URL. The form message will be saved to this field on the contact.</p>
+                                <p className="text-[10px] text-neutral-400">In HighLevel: Settings → Custom Fields → find your text field → use the Field Key shown (e.g. <span className="font-mono">contact.web_inquiry</span>). The form message will be saved to this field on the contact.</p>
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase text-neutral-400">Fallback Webhook URL (Zapier, Make.com, etc.)</label>

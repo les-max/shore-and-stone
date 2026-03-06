@@ -37,9 +37,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
         const firstName = nameParts[0] || '';
         const lastName = nameParts.slice(1).join(' ') || '';
 
-        // Build customFields array if a message field ID is configured
+        // Build customFields array if a message field key is configured
         const customFields = formData.message && highlevelMessageFieldKey
-          ? [{ id: highlevelMessageFieldKey, field_value: formData.message }]
+          ? [{ key: highlevelMessageFieldKey, field_value: formData.message }]
           : [];
 
         // Create contact in HighLevel
