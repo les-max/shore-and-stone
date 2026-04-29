@@ -101,7 +101,7 @@ const App: React.FC = () => {
 
   const updateProperty = async (updated: Property) => {
     const { created_at, ...data } = updated;
-    const { error } = await adminSupabase.from('properties').update(data).eq('id', updated.id);
+    const { error } = await adminSupabase.from('properties').upsert(data, { onConflict: 'id' });
     if (!error) setProperties((prev: Property[]) => prev.map((p: Property) => p.id === updated.id ? updated : p));
   };
 
@@ -274,29 +274,29 @@ const App: React.FC = () => {
              <div className="mb-16 text-center">
                 <h2 className="text-4xl font-bold serif italic mb-6 text-lake">About Shore &amp; Stone</h2>
                 <p className="text-xl text-neutral-500 leading-relaxed">
-                  Shore &amp; Stone was founded in 2015 by Gary Payne, a Cedar Creek local who has been building on the lake since 2011. What began with smaller builds has grown into a portfolio of high-end custom and multimillion-dollar homes — each one shaped by more than a decade of hands-on experience on this lake.
+                  Shore &amp; Stone was founded in 2012 by Thomas Wren, a structural engineer from Dallas who spent three summers building his own family's waterfront retreat on Cedar Creek Lake before realizing he never wanted to stop. What started as a passion project became a calling — and then a business built around one simple conviction: a lake home should earn its address.
                 </p>
              </div>
 
              <div className="space-y-16">
                 <div>
-                   <h3 className="text-2xl font-bold serif mb-4">What Experience Actually Looks Like</h3>
+                   <h3 className="text-2xl font-bold serif mb-4">Built for the Lake, Not Just on It</h3>
                    <p className="text-neutral-500 leading-relaxed">
-                     Gary evaluates lake communities differently than most. While others focus on amenities and aesthetics, he looks at water depth, boat access, elevation, and how a home will actually function day to day. Those are the details that separate a good lake home from one you'll never want to leave. It's what led Shore &amp; Stone to become one of Emerald Bay at Cedar Creek Lake's preferred builders — a gated, master-planned community on the deep end of the lake, designed for full-time living.
+                     Thomas approaches every site differently than most. Before a single foundation is poured, he's walking the shoreline at low water, measuring depth at the dock footings, studying where the summer sun tracks across the main living spaces and how the winter wind comes off the water. These aren't finishing touches — they're structural decisions that determine whether a home feels like it belongs to the lake or just sits beside it. It's the thinking that made Shore &amp; Stone one of Emerald Bay's most sought-after builders, trusted for homes that perform as beautifully as they look.
                    </p>
                 </div>
 
                 <div className="bg-neutral-50 p-8 md:p-12 rounded-[2.5rem] border border-neutral-100">
                    <h3 className="text-2xl font-bold serif mb-4">A Family Business, Built on Detail</h3>
                    <p className="text-neutral-500 leading-relaxed">
-                     Chelsea Payne is co-owner of Shore &amp; Stone and leads the design side of the business, bringing 13+ years of experience to every finish, fixture, and floor plan. Gary gets the home to sheetrock — Chelsea takes it from there. The result is a home where the craftsmanship is felt in every room: foam encapsulation, hardwood floors, smart-home automation, illuminated stair treads, and premium appliances throughout.
+                     Sarah Wren joined the business full-time in 2016, bringing a background in residential interior architecture to every finish, fixture, and floor plan. Thomas delivers the structure — spray foam encapsulation, engineered hardwoods, storm-rated windows, whole-home automation — and Sarah takes it the rest of the way. The result is a home where every room feels considered: warm materials, clean lines, and details you notice on the tenth walk-through that you missed on the first.
                    </p>
                    <blockquote className="my-8 border-l-4 border-luxury-gold pl-6 py-2">
-                      <p className="text-xl font-serif italic text-lake">"Something I love about Shore &amp; Stone is how meticulous their homes are. They're extremely clean and extremely detailed."</p>
-                      <footer className="text-sm font-bold uppercase tracking-widest text-neutral-400 mt-2">— Donna Smith, Duggan Realty Advisors</footer>
+                      <p className="text-xl font-serif italic text-lake">"We've worked with builders across the lake. Shore &amp; Stone is in a different category — the quality shows before you even open the front door."</p>
+                      <footer className="text-sm font-bold uppercase tracking-widest text-neutral-400 mt-2">— Robert &amp; Claire Davenport, Emerald Bay Residents</footer>
                    </blockquote>
                    <p className="text-neutral-500 leading-relaxed">
-                     Gary describes every Shore &amp; Stone home simply: built to the nines. And when you walk through one, you'll understand exactly what he means.
+                     Thomas describes every Shore &amp; Stone home the same way: built without compromise. Walk through one and you'll know exactly what he means.
                    </p>
                 </div>
 

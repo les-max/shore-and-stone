@@ -2,7 +2,7 @@ import { Property, SiteSettings } from './types';
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   "logoImage": "https://lesbrownimages.carrd.co/assets/images/image03.png?v=285ff39d$0",
-  "heroImage": "https://photos.zillowstatic.com/fp/478eb995b712eb79af80c59ea8f527ba-cc_ft_768.webp",
+  "heroImage": "/lake-home.png",
   "heroHeadline": "Crafting Legacies on the Waterfront.",
   "heroSubheadline": "Bespoke architectural masterpieces designed for those who demand the pinnacle of Cedar Creek Lake living.",
   "companyName": "Shore & Stone",
@@ -149,7 +149,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     "baths": 4,
     "sqft": 3647,
     "description": "Welcome to elevated lake living on Cedar Creek Lake. This newly built modern farmhouse sits on an 8-foot-deep canal just moments from open water, offering effortless boating access and excellent short-term rental potential.\nA dramatic pivot door opens to a soaring 24-foot ceiling, a wall of windows, and sliding glass doors that blur the line between indoors and out. The open-concept living space is anchored by a refined fireplace and filled with natural light and lake breezes.\nThe main-level primary suite features a spa-inspired bath and private access to a covered terrace with water views. The chef’s kitchen pairs beauty and performance with quartz countertops, JennAir appliances, a gas range, farmhouse sink, built-in microwave, and a butler’s pantry with wine refrigerator—perfect for seamless entertaining.\nWith five bedrooms, three full baths, and a powder room, the home comfortably accommodates 20+ guests—ideal as a primary residence, luxury retreat, or high-performing vacation rental.\nOutdoors, professionally landscaped grounds lead to a private boat dock with boat and jet ski slips plus an elevated deck for panoramic sunset views. An oversized two-car garage, mudroom, laundry room with sink, and included LG front-load washer and dryer add everyday convenience.\nJust minutes from dining, grocery, fuel, and entertainment, this property delivers the best of lake life—watersports, sunset cruises, and peaceful mornings on the patio—all wrapped in timeless farmhouse style and modern luxury.",
-    "image": "https://photos.zillowstatic.com/fp/478eb995b712eb79af80c59ea8f527ba-uncropped_scaled_within_1536_1152.webp",
+    "image": "/lake-home.png",
     "gallery": [],
     "status": "Available",
     "neighborhood": "Long Cove",
