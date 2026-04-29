@@ -145,12 +145,13 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-neutral-50 flex flex-col">
       <nav className="fixed w-full z-50 glass shadow-sm">
         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-          <div className="flex items-center gap-4 cursor-pointer" onClick={() => setView('home')}>
-             <img 
-               src={settings.logoImage} 
-               alt={settings.companyName} 
-               className="h-20 w-auto object-contain"
-             />
+          <div className="flex flex-col cursor-pointer" onClick={() => setView('home')}>
+            <span style={{ fontFamily: "'Cinzel', serif", letterSpacing: '0.12em', fontWeight: 600, fontSize: '1.2rem', color: '#0c1c2c', lineHeight: 1 }}>
+              SHORE &amp; STONE
+            </span>
+            <span style={{ fontFamily: "'Cinzel', serif", letterSpacing: '0.38em', fontSize: '0.5rem', fontWeight: 400, color: '#c5a059', marginTop: '5px' }}>
+              CUSTOM HOMES
+            </span>
           </div>
 
           <div className="hidden md:flex items-center gap-10">
@@ -260,7 +261,7 @@ const App: React.FC = () => {
         <main className="flex-1">
            <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0">
-              <img src="https://media.vrbo.com/lodging/70000000/69560000/69553700/69553620/9b3ca718.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" className="w-full h-full object-cover brightness-[0.5]" alt="About Cedar Lux" />
+              <img src="https://media.vrbo.com/lodging/70000000/69560000/69553700/69553620/9b3ca718.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" className="w-full h-full object-cover brightness-[0.5]" alt="About Shore &amp; Stone" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
             </div>
             <div className="relative z-10 text-center text-white px-6">
@@ -271,9 +272,9 @@ const App: React.FC = () => {
 
           <div className="max-w-4xl mx-auto px-6 py-24">
              <div className="mb-16 text-center">
-                <h2 className="text-4xl font-bold serif italic mb-6 text-lake">About Cedar Lux Properties</h2>
+                <h2 className="text-4xl font-bold serif italic mb-6 text-lake">About Shore &amp; Stone</h2>
                 <p className="text-xl text-neutral-500 leading-relaxed">
-                  Cedar Lux Properties was founded in 2015 by Gary Payne, a Cedar Creek local who has been building on the lake since 2011. What began with smaller builds has grown into a portfolio of high-end custom and multimillion-dollar homes — each one shaped by more than a decade of hands-on experience on this lake.
+                  Shore &amp; Stone was founded in 2015 by Gary Payne, a Cedar Creek local who has been building on the lake since 2011. What began with smaller builds has grown into a portfolio of high-end custom and multimillion-dollar homes — each one shaped by more than a decade of hands-on experience on this lake.
                 </p>
              </div>
 
@@ -281,21 +282,21 @@ const App: React.FC = () => {
                 <div>
                    <h3 className="text-2xl font-bold serif mb-4">What Experience Actually Looks Like</h3>
                    <p className="text-neutral-500 leading-relaxed">
-                     Gary evaluates lake communities differently than most. While others focus on amenities and aesthetics, he looks at water depth, boat access, elevation, and how a home will actually function day to day. Those are the details that separate a good lake home from one you'll never want to leave. It's what led Cedar Lux to become one of Emerald Bay at Cedar Creek Lake's preferred builders — a gated, master-planned community on the deep end of the lake, designed for full-time living.
+                     Gary evaluates lake communities differently than most. While others focus on amenities and aesthetics, he looks at water depth, boat access, elevation, and how a home will actually function day to day. Those are the details that separate a good lake home from one you'll never want to leave. It's what led Shore &amp; Stone to become one of Emerald Bay at Cedar Creek Lake's preferred builders — a gated, master-planned community on the deep end of the lake, designed for full-time living.
                    </p>
                 </div>
 
                 <div className="bg-neutral-50 p-8 md:p-12 rounded-[2.5rem] border border-neutral-100">
                    <h3 className="text-2xl font-bold serif mb-4">A Family Business, Built on Detail</h3>
                    <p className="text-neutral-500 leading-relaxed">
-                     Chelsea Payne is co-owner of Cedar Lux and leads the design side of the business, bringing 13+ years of experience to every finish, fixture, and floor plan. Gary gets the home to sheetrock — Chelsea takes it from there. The result is a home where the craftsmanship is felt in every room: foam encapsulation, hardwood floors, smart-home automation, illuminated stair treads, and premium appliances throughout.
+                     Chelsea Payne is co-owner of Shore &amp; Stone and leads the design side of the business, bringing 13+ years of experience to every finish, fixture, and floor plan. Gary gets the home to sheetrock — Chelsea takes it from there. The result is a home where the craftsmanship is felt in every room: foam encapsulation, hardwood floors, smart-home automation, illuminated stair treads, and premium appliances throughout.
                    </p>
                    <blockquote className="my-8 border-l-4 border-luxury-gold pl-6 py-2">
-                      <p className="text-xl font-serif italic text-lake">"Something I love about Cedar Lux is how meticulous their homes are. They're extremely clean and extremely detailed."</p>
+                      <p className="text-xl font-serif italic text-lake">"Something I love about Shore &amp; Stone is how meticulous their homes are. They're extremely clean and extremely detailed."</p>
                       <footer className="text-sm font-bold uppercase tracking-widest text-neutral-400 mt-2">— Donna Smith, Duggan Realty Advisors</footer>
                    </blockquote>
                    <p className="text-neutral-500 leading-relaxed">
-                     Gary describes every Cedar Lux home simply: built to the nines. And when you walk through one, you'll understand exactly what he means.
+                     Gary describes every Shore &amp; Stone home simply: built to the nines. And when you walk through one, you'll understand exactly what he means.
                    </p>
                 </div>
 
@@ -617,11 +618,14 @@ const App: React.FC = () => {
       <footer className="bg-white border-t border-neutral-100 py-16">
          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="text-center md:text-left">
-               <img 
-                 src={settings.logoImage} 
-                 alt={settings.companyName} 
-                 className="h-16 w-auto mb-4 mx-auto md:mx-0 object-contain"
-               />
+               <div className="mb-4">
+                 <span style={{ fontFamily: "'Cinzel', serif", letterSpacing: '0.12em', fontWeight: 600, fontSize: '1.15rem', color: '#0c1c2c', display: 'block', lineHeight: 1 }}>
+                   SHORE &amp; STONE
+                 </span>
+                 <span style={{ fontFamily: "'Cinzel', serif", letterSpacing: '0.38em', fontSize: '0.5rem', fontWeight: 400, color: '#c5a059', display: 'block', marginTop: '5px' }}>
+                   CUSTOM HOMES
+                 </span>
+               </div>
                <p className="text-neutral-400 text-xs font-medium max-w-xs uppercase tracking-wider">Unrivaled lakefront masterpieces for the discerning Texan.</p>
             </div>
             <div className="flex gap-8 text-neutral-400">
