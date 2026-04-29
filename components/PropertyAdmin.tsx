@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Property, PropertyStatus, SiteSettings, LocalSpot } from '../types';
-import { Layout, Settings, Edit2, Trash2, X, Sun, LogOut, Plus, Save, CheckCircle, Zap, Star, MapPin } from 'lucide-react';
+import { Layout, Settings, Edit2, Trash2, X, Sun, LogOut, Plus, Save, CheckCircle, Zap, Star, MapPin, Upload, Loader2 } from 'lucide-react';
+import { adminSupabase } from '../services/supabaseClient';
 
 interface PropertyAdminProps {
   properties: Property[];
@@ -45,7 +46,23 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
   });
   const [newGalleryUrl, setNewGalleryUrl] = useState('');
 
+  const [uploadingField, setUploadingField] = useState<string | null>(null);
   const [tempSettings, setTempSettings] = useState<SiteSettings>(settings);
+
+  const uploadImage = async (file: File, folder: string): Promise<string | null> => {
+    const ext = file.name.split('.').pop() || 'jpg';
+    const filename = `${folder}/${Date.now()}.${ext}`;
+    const { error } = await adminSupabase.storage.from('images').upload(filename, file, { upsert: true });
+    if (error) { console.error('Upload error:', error); return null; }
+    return adminSupabase.storage.from('images').getPublicUrl(filename).data.publicUrl;
+  };
+
+  const handleUpload = async (file: File, folder: string, fieldKey: string, onUrl: (url: string) => void) => {
+    setUploadingField(fieldKey);
+    const url = await uploadImage(file, folder);
+    if (url) onUrl(url);
+    setUploadingField(null);
+  };
   const [isAddingSpot, setIsAddingSpot] = useState(false);
   const [editingSpot, setEditingSpot] = useState<LocalSpot | null>(null);
   const [spotForm, setSpotForm] = useState<Partial<LocalSpot>>({ title: '', category: 'Dining', description: '', image: '', isFeatured: false });
@@ -213,11 +230,16 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                             )}
                             <input
                               className="flex-1 p-3 border rounded-xl text-sm"
-                              placeholder="https://..."
+                              placeholder="https://... or upload →"
                               value={formData.image || ''}
                               onChange={e => setFormData({...formData, image: e.target.value})}
                               required
                             />
+                            <label className="cursor-pointer px-4 py-3 bg-lake text-white rounded-xl flex items-center gap-1.5 text-sm font-bold flex-shrink-0 hover:bg-neutral-800 transition-colors">
+                              {uploadingField === 'keyPhoto' ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
+                              <span>Upload</span>
+                              <input type="file" accept="image/*" className="sr-only" onChange={e => { if (e.target.files?.[0]) handleUpload(e.target.files[0], 'properties', 'keyPhoto', url => setFormData(f => ({...f, image: url}))); e.target.value = ''; }} />
+                            </label>
                           </div>
                        </div>
 
@@ -266,6 +288,10 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                                 }
                               }}
                             />
+                            <label className="cursor-pointer px-4 py-2 bg-neutral-100 text-neutral-600 rounded-xl font-bold text-sm flex items-center gap-1.5 flex-shrink-0 hover:bg-neutral-200 transition-colors">
+                              {uploadingField === 'gallery' ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
+                              <input type="file" accept="image/*" className="sr-only" onChange={e => { if (e.target.files?.[0]) handleUpload(e.target.files[0], 'properties', 'gallery', url => setFormData(f => ({...f, gallery: [...(f.gallery || []), url]}))); e.target.value = ''; }} />
+                            </label>
                             <button
                               type="button"
                               onClick={() => {
@@ -343,12 +369,18 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                       value={tempSettings.lifestyleHeroSubheadline} 
                       onChange={e => setTempSettings({...tempSettings, lifestyleHeroSubheadline: e.target.value})} 
                     />
-                    <input 
-                      placeholder="Hero Image URL" 
-                      className="w-full p-4 border rounded-xl" 
-                      value={tempSettings.lifestyleHeroImage} 
-                      onChange={e => setTempSettings({...tempSettings, lifestyleHeroImage: e.target.value})} 
-                    />
+                    <div className="flex gap-2">
+                      <input
+                        placeholder="Hero Image URL"
+                        className="flex-1 p-4 border rounded-xl"
+                        value={tempSettings.lifestyleHeroImage}
+                        onChange={e => setTempSettings({...tempSettings, lifestyleHeroImage: e.target.value})}
+                      />
+                      <label className="cursor-pointer px-4 py-3 bg-lake text-white rounded-xl flex items-center gap-1.5 text-sm font-bold flex-shrink-0 hover:bg-neutral-800 transition-colors">
+                        {uploadingField === 'lifestyleHeroImage' ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
+                        <input type="file" accept="image/*" className="sr-only" onChange={e => { if (e.target.files?.[0]) handleUpload(e.target.files[0], 'settings', 'lifestyleHeroImage', url => setTempSettings(s => ({...s, lifestyleHeroImage: url}))); e.target.value = ''; }} />
+                      </label>
+                    </div>
                  </div>
                  
                  <div className="space-y-4 bg-neutral-50 p-8 rounded-3xl border border-neutral-100">
@@ -473,16 +505,28 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                  </div>
                  <div className="space-y-2">
                     <label className="text-xs font-bold uppercase text-neutral-400">Home Hero Image</label>
-                    <input className="w-full p-3 border rounded-xl" value={tempSettings.heroImage} onChange={e => setTempSettings({...tempSettings, heroImage: e.target.value})} />
+                    <div className="flex gap-2">
+                      <input className="flex-1 p-3 border rounded-xl" value={tempSettings.heroImage} onChange={e => setTempSettings({...tempSettings, heroImage: e.target.value})} />
+                      <label className="cursor-pointer px-4 py-3 bg-lake text-white rounded-xl flex items-center gap-1.5 text-sm font-bold flex-shrink-0 hover:bg-neutral-800 transition-colors">
+                        {uploadingField === 'heroImage' ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
+                        <input type="file" accept="image/*" className="sr-only" onChange={e => { if (e.target.files?.[0]) handleUpload(e.target.files[0], 'settings', 'heroImage', url => setTempSettings(s => ({...s, heroImage: url}))); e.target.value = ''; }} />
+                      </label>
+                    </div>
                  </div>
                  <div className="col-span-1 md:col-span-2 space-y-2">
                     <label className="text-xs font-bold uppercase text-neutral-400">Social Media Photo</label>
-                    <input
-                       className="w-full p-3 border rounded-xl"
-                       placeholder="https://..."
-                       value={tempSettings.socialImage || ''}
-                       onChange={e => setTempSettings({...tempSettings, socialImage: e.target.value})}
-                    />
+                    <div className="flex gap-2">
+                      <input
+                         className="flex-1 p-3 border rounded-xl"
+                         placeholder="https://..."
+                         value={tempSettings.socialImage || ''}
+                         onChange={e => setTempSettings({...tempSettings, socialImage: e.target.value})}
+                      />
+                      <label className="cursor-pointer px-4 py-3 bg-lake text-white rounded-xl flex items-center gap-1.5 text-sm font-bold flex-shrink-0 hover:bg-neutral-800 transition-colors">
+                        {uploadingField === 'socialImage' ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
+                        <input type="file" accept="image/*" className="sr-only" onChange={e => { if (e.target.files?.[0]) handleUpload(e.target.files[0], 'settings', 'socialImage', url => setTempSettings(s => ({...s, socialImage: url}))); e.target.value = ''; }} />
+                      </label>
+                    </div>
                     <p className="text-[10px] text-neutral-400">This image appears when someone shares the website on Facebook, Instagram, or text message. Use a high-quality horizontal photo (1200×630px ideal).</p>
                     {tempSettings.socialImage && (
                       <img src={tempSettings.socialImage} className="mt-2 rounded-xl w-full max-w-sm h-36 object-cover border border-neutral-200" alt="Social preview" />
