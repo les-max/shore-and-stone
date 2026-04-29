@@ -130,8 +130,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     "Star Harbor",
     "Beacon Hill"
   ],
-  "phone": "972-764-8687",
-  "email": "info@cedarluxproperties.com",
+  "phone": "903-555-0142",
+  "email": "info@shoreandstone.com",
   "address": "Mabank, TX 75147",
   "socialImage": "https://photos.zillowstatic.com/fp/478eb995b712eb79af80c59ea8f527ba-uncropped_scaled_within_1536_1152.webp",
   "externalScripts": "",
