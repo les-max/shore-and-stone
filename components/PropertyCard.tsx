@@ -15,12 +15,12 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, onViewDeta
   });
 
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl ease-strong-out transition-[transform,box-shadow] duration-300 hover:-translate-y-2">
       <div className="relative h-72 overflow-hidden">
         <img 
           src={property.image} 
           alt={property.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
         <div className="absolute top-4 left-4">
           <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${
@@ -54,7 +54,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, onViewDeta
         
         <button 
           onClick={() => onViewDetails?.(property)}
-          className="w-full py-3 bg-lake text-white rounded-lg font-semibold hover:bg-neutral-800 transition-colors"
+          className="w-full py-3 bg-lake text-white rounded-lg font-semibold hover:bg-neutral-800 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97]"
         >
           View Details
         </button>

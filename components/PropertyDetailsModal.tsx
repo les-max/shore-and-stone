@@ -22,9 +22,9 @@ export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ prop
   const prevImage = () => setActiveImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-sm">
-      <div className="relative w-full max-w-6xl h-full max-h-[90vh] bg-white rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
-        <button onClick={onClose} className="absolute top-6 right-6 z-10 p-2 bg-neutral-100 rounded-full hover:bg-neutral-200 transition-colors">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-sm animate-modal-backdrop">
+      <div className="relative w-full max-w-6xl h-full max-h-[90vh] bg-white rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl animate-modal-content">
+        <button onClick={onClose} className="absolute top-6 right-6 z-10 p-2 bg-neutral-100 rounded-full hover:bg-neutral-200 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97]">
           <X size={24} />
         </button>
         <div className="w-full md:w-3/5 bg-neutral-900 flex flex-col overflow-hidden">
@@ -32,10 +32,10 @@ export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ prop
             <img src={images[activeImageIndex]} className="w-full h-full object-cover" alt={property.title} />
             {images.length > 1 && (
               <>
-                <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/30 rounded-full text-white hover:bg-black/50 transition-all">
+                <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/30 rounded-full text-white hover:bg-black/50 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97]">
                   <ChevronLeft size={24} />
                 </button>
-                <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/30 rounded-full text-white hover:bg-black/50 transition-all">
+                <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/30 rounded-full text-white hover:bg-black/50 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97]">
                   <ChevronRight size={24} />
                 </button>
                 <div className="absolute bottom-4 right-4 bg-black/50 text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -93,14 +93,14 @@ export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ prop
                 href={property.listingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-5 bg-luxury-gold text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-amber-600 transition-all flex items-center justify-center gap-3 mt-8"
+                className="w-full py-5 bg-luxury-gold text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-amber-600 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] flex items-center justify-center gap-3 mt-8"
               >
                 See the Listing <ExternalLink size={16} />
               </a>
             )}
             <button
               onClick={onInquire}
-              className="w-full py-5 bg-lake text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-neutral-800 transition-all flex items-center justify-center gap-3 mt-4"
+              className="w-full py-5 bg-lake text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-neutral-800 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] flex items-center justify-center gap-3 mt-4"
             >
               Inquire About This Property <MessageSquare size={16} />
             </button>

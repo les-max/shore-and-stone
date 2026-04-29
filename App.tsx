@@ -162,7 +162,7 @@ const App: React.FC = () => {
             <button onClick={() => setView('contact')} className={`text-xs font-bold tracking-[0.2em] uppercase transition-colors ${view === 'contact' ? 'text-luxury-gold' : 'text-neutral-600 hover:text-lake'}`}>Contact</button>
             <button 
               onClick={() => setView('admin')} 
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-xs uppercase tracking-[0.1em] transition-all ${view === 'admin' ? 'bg-lake text-white' : 'border border-lake text-lake hover:bg-lake hover:text-white'}`}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-xs uppercase tracking-[0.1em] transition-[background-color,color,border-color,transform] duration-150 ease-out active:scale-[0.97] ${view === 'admin' ? 'bg-lake text-white' : 'border border-lake text-lake hover:bg-lake hover:text-white'}`}
             >
               <LayoutDashboard size={14} /> Backend
             </button>
@@ -176,7 +176,7 @@ const App: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-white flex flex-col p-12 pt-32 gap-8 md:hidden">
+        <div className="fixed inset-0 z-[60] bg-white flex flex-col p-12 pt-32 gap-8 md:hidden mobile-menu-enter">
           <button onClick={() => { setView('home'); setIsMenuOpen(false); }} className="text-3xl font-bold serif text-left">Home</button>
           <button onClick={() => { setView('about'); setIsMenuOpen(false); }} className="text-3xl font-bold serif text-left">About Us</button>
           <button onClick={() => { setView('listings'); setIsMenuOpen(false); }} className="text-3xl font-bold serif text-left">The Collection</button>
@@ -190,23 +190,23 @@ const App: React.FC = () => {
       )}
 
       {view === 'home' && (
-        <main className="flex-1">
+        <main className="flex-1 page-enter">
           <section className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
             <div className="absolute inset-0">
               <img src={settings.heroImage} className="w-full h-full object-cover brightness-[0.65]" alt="" />
               <div className="absolute inset-0 bg-gradient-to-t from-lake/60 via-transparent to-black/30"></div>
             </div>
             <div className="relative max-w-7xl mx-auto px-6 pt-24 text-white">
-              <div className="inline-block px-4 py-2 border border-white/30 bg-white/10 backdrop-blur-md rounded-full mb-8">
+              <div className="hero-item hero-item-1 inline-block px-4 py-2 border border-white/30 bg-white/10 backdrop-blur-md rounded-full mb-8">
                 <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Exclusively Cedar Creek Lake</span>
               </div>
-              <h1 className="text-6xl md:text-[5.5rem] font-medium leading-[1.05] mb-8 max-w-4xl">
+              <h1 className="hero-item hero-item-2 text-6xl md:text-[5.5rem] font-medium leading-[1.05] mb-8 max-w-4xl">
                 {settings.heroHeadline}
               </h1>
-              <p className="text-xl md:text-2xl text-neutral-200 max-w-2xl mb-12 font-light">
+              <p className="hero-item hero-item-3 text-xl md:text-2xl text-neutral-200 max-w-2xl mb-12 font-light">
                 {settings.heroSubheadline}
               </p>
-              <button onClick={() => setView('listings')} className="px-12 py-5 bg-luxury-gold text-white font-bold rounded-full hover:bg-white hover:text-lake transition-all shadow-2xl text-lg flex items-center gap-3">
+              <button onClick={() => setView('listings')} className="hero-item hero-item-4 px-12 py-5 bg-luxury-gold text-white font-bold rounded-full hover:bg-white hover:text-lake transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.97] shadow-2xl text-lg flex items-center gap-3">
                 Explore The Collection <ArrowRight size={20} />
               </button>
             </div>
@@ -219,8 +219,8 @@ const App: React.FC = () => {
                   <h2 className="text-5xl md:text-6xl font-bold italic serif">Featured Homes</h2>
                   <p className="text-neutral-500 mt-4 max-w-xl">A selection of our most prestigious properties currently overlooking Cedar Creek Lake.</p>
                 </div>
-                <button onClick={() => setView('listings')} className="text-luxury-gold font-bold flex items-center gap-2 hover:gap-4 transition-all pb-2 border-b-2 border-luxury-gold">
-                  View Full Collection <ArrowRight size={18} />
+                <button onClick={() => setView('listings')} className="group/btn text-luxury-gold font-bold flex items-center gap-2 transition-colors pb-2 border-b-2 border-luxury-gold active:scale-[0.97] transition-transform duration-150 ease-out">
+                  View Full Collection <ArrowRight size={18} className="transition-transform duration-200 ease-out group-hover/btn:translate-x-1" />
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -240,7 +240,7 @@ const App: React.FC = () => {
               <div className="flex-1">
                 <h2 className="text-5xl font-medium serif italic mb-8">{settings.lifestyleHeadline}</h2>
                 <p className="text-neutral-400 text-xl font-light mb-12 leading-relaxed">{settings.lifestyleSubheadline}</p>
-                <button onClick={() => setView('lifestyle')} className="px-10 py-4 border-2 border-luxury-gold text-luxury-gold font-bold rounded-full hover:bg-luxury-gold hover:text-white transition-all uppercase tracking-widest text-xs">
+                <button onClick={() => setView('lifestyle')} className="px-10 py-4 border-2 border-luxury-gold text-luxury-gold font-bold rounded-full hover:bg-luxury-gold hover:text-white transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.97] uppercase tracking-widest text-xs">
                   Discover Lake Life
                 </button>
               </div>
@@ -258,7 +258,7 @@ const App: React.FC = () => {
       )}
 
       {view === 'about' && (
-        <main className="flex-1">
+        <main className="flex-1 page-enter">
            <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0">
               <img src="https://media.vrbo.com/lodging/70000000/69560000/69553700/69553620/9b3ca718.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" className="w-full h-full object-cover brightness-[0.5]" alt="About Shore &amp; Stone" />
@@ -301,7 +301,7 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="text-center pt-8">
-                   <button onClick={() => setView('contact')} className="px-12 py-5 bg-lake text-white font-black rounded-full uppercase tracking-[0.2em] text-xs shadow-xl hover:bg-neutral-800 transition-all">Start Your Project With Us</button>
+                   <button onClick={() => setView('contact')} className="px-12 py-5 bg-lake text-white font-black rounded-full uppercase tracking-[0.2em] text-xs shadow-xl hover:bg-neutral-800 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97]">Start Your Project With Us</button>
                 </div>
              </div>
           </div>
@@ -309,7 +309,7 @@ const App: React.FC = () => {
       )}
 
       {view === 'lifestyle' && (
-        <main className="flex-1">
+        <main className="flex-1 page-enter">
 
           {/* Hero — image anchored, text at bottom-left */}
           <section className="relative h-screen min-h-[700px] flex items-end overflow-hidden">
@@ -359,7 +359,7 @@ const App: React.FC = () => {
                   <p className="text-neutral-500 text-lg leading-relaxed mb-10">
                     Emerald Bay at Cedar Creek Lake brings together the best of both: gated privacy, deep-water access, championship golf, and infrastructure built for year-round living.
                   </p>
-                  <button onClick={() => setView('contact')} className="px-10 py-4 border-2 border-lake text-lake font-bold rounded-full hover:bg-lake hover:text-white transition-all uppercase tracking-widest text-xs">
+                  <button onClick={() => setView('contact')} className="px-10 py-4 border-2 border-lake text-lake font-bold rounded-full hover:bg-lake hover:text-white transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.97] uppercase tracking-widest text-xs">
                     Start the Conversation
                   </button>
                 </div>
@@ -403,7 +403,7 @@ const App: React.FC = () => {
                 {(lifestyleFilter === 'All' ? settings.localSpots : settings.localSpots.filter(s => s.category === lifestyleFilter)).map(spot => (
                   <div key={spot.id} className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-sm hover:shadow-md transition-shadow group">
                     <div className="relative h-52 overflow-hidden">
-                      <img src={spot.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={spot.title} />
+                      <img src={spot.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out" alt={spot.title} />
                       <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-lake text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1.5">
                         {spot.category === 'Dining' && <Utensils size={10} />}
                         {spot.category === 'Shopping' && <ShoppingBag size={10} />}
@@ -428,7 +428,7 @@ const App: React.FC = () => {
       )}
 
       {view === 'listings' && (
-        <main className="flex-1 pt-40 pb-32">
+        <main className="flex-1 pt-40 pb-32 page-enter">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
                <div>
@@ -477,7 +477,7 @@ const App: React.FC = () => {
                     <div className="flex flex-wrap gap-3">
                       <button
                         onClick={() => setSelectedProperty(featured)}
-                        className="px-10 py-4 bg-lake text-white font-bold rounded-full hover:bg-neutral-800 transition-all uppercase tracking-widest text-xs"
+                        className="px-10 py-4 bg-lake text-white font-bold rounded-full hover:bg-neutral-800 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] uppercase tracking-widest text-xs"
                       >
                         View Details
                       </button>
@@ -486,7 +486,7 @@ const App: React.FC = () => {
                           href={featured.listingUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-10 py-4 bg-luxury-gold text-white font-bold rounded-full hover:bg-amber-600 transition-all uppercase tracking-widest text-xs flex items-center gap-2"
+                          className="px-10 py-4 bg-luxury-gold text-white font-bold rounded-full hover:bg-amber-600 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] uppercase tracking-widest text-xs flex items-center gap-2"
                         >
                           See the Listing <ExternalLink size={14} />
                         </a>
@@ -518,7 +518,7 @@ const App: React.FC = () => {
       )}
 
       {view === 'contact' && (
-        <main className="flex-1 pt-40 pb-32 bg-neutral-50">
+        <main className="flex-1 pt-40 pb-32 bg-neutral-50 page-enter">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
                <div>
@@ -571,7 +571,7 @@ const App: React.FC = () => {
       )}
 
       {view === 'admin' && (
-        <main className="flex-1 pt-40 pb-24 px-6 bg-neutral-100 flex items-center justify-center">
+        <main className="flex-1 pt-40 pb-24 px-6 bg-neutral-100 flex items-center justify-center page-enter">
           {!isAuthenticated ? (
             <div className="w-full max-w-md bg-white p-12 rounded-[2.5rem] shadow-2xl border border-neutral-200">
               <div className="text-center mb-8">
@@ -587,7 +587,7 @@ const App: React.FC = () => {
                   onChange={e => setPasswordInput(e.target.value)}
                   autoFocus
                 />
-                <button type="submit" className="w-full py-4 bg-lake text-white font-black rounded-xl hover:bg-neutral-800 transition-all uppercase tracking-widest text-xs">Unlock Backend</button>
+                <button type="submit" className="w-full py-4 bg-lake text-white font-black rounded-xl hover:bg-neutral-800 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] uppercase tracking-widest text-xs">Unlock Backend</button>
               </form>
             </div>
           ) : (
