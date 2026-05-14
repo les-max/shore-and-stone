@@ -1,11 +1,11 @@
 import { Property, SiteSettings } from './types';
 
 export const DEFAULT_SETTINGS: SiteSettings = {
-  "logoImage": "https://lesbrownimages.carrd.co/assets/images/image03.png?v=285ff39d$0",
+  "logoImage": "/CedarLuxDark.png",
   "heroImage": "/lake-home.png",
   "heroHeadline": "Crafting Legacies on the Waterfront.",
   "heroSubheadline": "Bespoke architectural masterpieces designed for those who demand the pinnacle of Cedar Creek Lake living.",
-  "companyName": "Shore & Stone",
+  "companyName": "Cedar Lux Properties",
   "lifestyleHeroImage": "https://texas.twoguyswhogolf.com/reviews/cedarcreek/Cedar_Creek_0143wa3.jpg",
   "lifestyleHeroHeadline": "Texas' Premier Waterfront Sanctuary",
   "lifestyleHeroSubheadline": "The perfect balance of adrenaline-fueled adventure and serene lakeside tranquility, just 60 minutes from Dallas.",
@@ -130,8 +130,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     "Star Harbor",
     "Beacon Hill"
   ],
-  "phone": "903-555-0142",
-  "email": "info@shoreandstone.com",
+  "phone": "972-764-8687",
+  "email": "info@cedarluxproperties.com",
   "address": "Mabank, TX 75147",
   "socialImage": "https://photos.zillowstatic.com/fp/478eb995b712eb79af80c59ea8f527ba-uncropped_scaled_within_1536_1152.webp",
   "externalScripts": "",
