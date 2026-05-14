@@ -253,6 +253,33 @@ const App: React.FC = () => {
               </div>
             </div>
           </section>
+
+          <section className="py-24 bg-white">
+            <div className="max-w-4xl mx-auto px-6">
+              <div className="flex items-center gap-4 mb-10">
+                <h2 className="text-3xl font-bold italic serif text-lake">In the Press</h2>
+                <div className="flex-1 h-px bg-neutral-200"></div>
+              </div>
+              <a
+                href="https://candysdirt.com/2025/12/19/why-one-experienced-lake-builder-chose-emerald-bay-at-cedar-creek-lake/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block border border-neutral-200 rounded-[2rem] p-8 hover:border-luxury-gold hover:shadow-lg transition-all duration-200"
+              >
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-16 h-16 bg-lake rounded-2xl flex items-center justify-center">
+                    <span className="text-luxury-gold font-black text-xs uppercase tracking-widest text-center leading-tight px-2">Candy's Dirt</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs font-bold uppercase tracking-widest text-luxury-gold mb-2">CandysDirt.com — December 2025</p>
+                    <h4 className="text-lg font-bold serif text-lake mb-2 group-hover:text-luxury-gold transition-colors">Why One Experienced Lake Builder Chose Emerald Bay at Cedar Creek Lake</h4>
+                    <p className="text-neutral-500 text-sm leading-relaxed">A deep dive into how Gary Payne evaluates lake communities, what sets Cedar Lux apart as a builder, and why Emerald Bay earned a spot as one of the lake's preferred builders.</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mt-4 group-hover:text-luxury-gold transition-colors">Read the article &rarr;</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </section>
         </main>
       )}
 
