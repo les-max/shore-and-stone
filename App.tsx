@@ -7,7 +7,7 @@ import { PropertyAdmin } from './components/PropertyAdmin';
 import { PropertyDetailsModal } from './components/PropertyDetailsModal';
 import { ContactForm } from './components/ContactForm';
 import {
-  Menu, X, LayoutDashboard,
+  Menu, X,
   ArrowRight, Quote, Search, ChevronLeft,
   Waves, Flag, Users, ShoppingBag, Utensils, Anchor, MapPin,
   Sun, Coffee, Star, Instagram, Facebook, Phone, Mail, ExternalLink
@@ -47,6 +47,15 @@ const App: React.FC = () => {
       }
     };
     loadData();
+  }, []);
+
+  // Private CMS access: there is no nav button. Visiting the site with the
+  // #admin hash (e.g. cedarluxproperties.com/#admin) opens the backend login.
+  useEffect(() => {
+    const checkHash = () => { if (window.location.hash === '#admin') setView('admin'); };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
   }, []);
 
   // Scroll to top on view change
@@ -179,12 +188,6 @@ const App: React.FC = () => {
             <button onClick={() => setView('listings')} className={`text-xs font-bold tracking-[0.2em] uppercase transition-colors ${view === 'listings' ? 'text-luxury-gold' : 'text-neutral-600 hover:text-lake'}`}>Collection</button>
             <button onClick={() => setView('lifestyle')} className={`text-xs font-bold tracking-[0.2em] uppercase transition-colors ${view === 'lifestyle' ? 'text-luxury-gold' : 'text-neutral-600 hover:text-lake'}`}>Lifestyle</button>
             <button onClick={() => setView('contact')} className={`text-xs font-bold tracking-[0.2em] uppercase transition-colors ${view === 'contact' ? 'text-luxury-gold' : 'text-neutral-600 hover:text-lake'}`}>Contact</button>
-            <button 
-              onClick={() => setView('admin')} 
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-xs uppercase tracking-[0.1em] transition-[background-color,color,border-color,transform] duration-150 ease-out active:scale-[0.97] ${view === 'admin' ? 'bg-lake text-white' : 'border border-lake text-lake hover:bg-lake hover:text-white'}`}
-            >
-              <LayoutDashboard size={14} /> Backend
-            </button>
           </div>
 
           <button className="md:hidden text-lake" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -201,7 +204,6 @@ const App: React.FC = () => {
           <button onClick={() => { setView('listings'); setIsMenuOpen(false); }} className="text-3xl font-bold serif text-left">The Collection</button>
           <button onClick={() => { setView('lifestyle'); setIsMenuOpen(false); }} className="text-3xl font-bold serif text-left">Lifestyle</button>
           <button onClick={() => { setView('contact'); setIsMenuOpen(false); }} className="text-3xl font-bold serif text-left">Contact</button>
-          <button onClick={() => { setView('admin'); setIsMenuOpen(false); }} className="text-3xl font-bold serif text-left text-luxury-gold">CMS Login</button>
           <div className="mt-auto flex gap-6 text-neutral-400">
             <Instagram size={24} /> <Facebook size={24} />
           </div>
