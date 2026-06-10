@@ -15,13 +15,23 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
     name: '',
     email: '',
     phone: '',
-    message: prefillMessage || ''
+    message: prefillMessage || '',
+    consent: false
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const consentText = `I agree to be contacted by ${companyName} by phone, text message, and email regarding my inquiry. Message and data rates may apply. Reply STOP to opt out at any time.`;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.consent) {
+      setStatus('error');
+      setErrorMessage('Please confirm you agree to be contacted before submitting.');
+      return;
+    }
+
     const useHighLevel = highlevelToken && highlevelLocationId;
     if (!useHighLevel && !webhookUrl) {
       setStatus('error');
@@ -38,6 +48,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
           body: JSON.stringify({
             ...formData,
             companyName,
+            consentText,
             highlevelToken,
             highlevelLocationId,
           }),
@@ -59,7 +70,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '', consent: false });
     } catch (err) {
       setStatus('error');
       setErrorMessage('Something went wrong. Please try again or call us directly.');
@@ -137,6 +148,20 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
             onChange={e => setFormData({...formData, message: e.target.value})}
           />
         </div>
+
+        <label className="flex items-start gap-3 pt-1 cursor-pointer select-none group">
+          <input
+            required
+            type="checkbox"
+            checked={formData.consent}
+            onChange={e => setFormData({...formData, consent: e.target.checked})}
+            style={{ accentColor: '#0c1c2c' }}
+            className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded-md"
+          />
+          <span className="text-[11px] leading-relaxed text-neutral-400 group-hover:text-neutral-500 transition-colors">
+            {consentText}
+          </span>
+        </label>
 
         {status === 'error' && (
           <div className="flex items-center gap-3 p-4 bg-red-50 text-red-600 rounded-xl text-sm border border-red-100">

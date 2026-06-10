@@ -8,7 +8,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, phone, message, companyName, highlevelToken, highlevelLocationId } = req.body;
+  const { name, email, phone, message, companyName, consent, consentText, highlevelToken, highlevelLocationId } = req.body;
 
   if (!highlevelToken || !highlevelLocationId) {
     return res.status(400).json({ error: 'Missing HighLevel credentials' });
@@ -24,6 +24,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const firstName = nameParts[0] || '';
   const lastName = nameParts.slice(1).join(' ') || '';
 
+  const tags = ['web_inquiry'];
+  if (consent) tags.push('sms_consent');
+
   // Create (or upsert) the contact
   const contactRes = await fetch(`${HL_BASE}/contacts/upsert`, {
     method: 'POST',
@@ -36,7 +39,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       email,
       phone,
       source: companyName,
-      tags: ['web_inquiry'],
+      tags,
     }),
   });
 
@@ -54,6 +57,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       method: 'POST',
       headers,
       body: JSON.stringify({ body: message }),
+    });
+  }
+
+  // Record consent as a timestamped note for compliance (TCPA/A2P paper trail)
+  if (consent && contactId) {
+    const stamp = new Date().toISOString();
+    const consentNote = `Consent captured ${stamp} via website contact form: "${consentText || 'Agreed to be contacted by phone, text message, and email.'}"`;
+    await fetch(`${HL_BASE}/contacts/${contactId}/notes`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ body: consentNote }),
     });
   }
 
