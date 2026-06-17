@@ -421,7 +421,7 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                               <option>Marina</option>
                               <option>Shopping</option>
                               <option>Church</option>
-                              <option>Attraction</option>
+                              <option>School</option>
                             </select>
                           </div>
                           <div className="md:col-span-2 space-y-1">

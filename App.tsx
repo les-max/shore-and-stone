@@ -11,7 +11,7 @@ import { CedarCreekLakePage } from './components/CedarCreekLakePage';
 import {
   Menu, X,
   ArrowRight, Quote, Search, ChevronLeft,
-  Waves, Flag, Users, ShoppingBag, Utensils, Anchor, MapPin,
+  Waves, Flag, Users, ShoppingBag, Utensils, Anchor, MapPin, BookOpen,
   Sun, Coffee, Star, Instagram, Facebook, Phone, Mail, ExternalLink
 } from 'lucide-react';
 
@@ -591,7 +591,7 @@ const App: React.FC = () => {
               </div>
 
               <div className="flex flex-wrap gap-3 justify-center mb-12">
-                {['All', 'Dining', 'Golf', 'Marina', 'Shopping', 'Church', 'Attraction'].map(cat => (
+                {['All', 'Dining', 'Golf', 'Marina', 'Shopping', 'Church', 'School'].map(cat => (
                   <button
                     key={cat}
                     onClick={() => setLifestyleFilter(cat)}
@@ -613,7 +613,7 @@ const App: React.FC = () => {
                         {spot.category === 'Golf' && <Flag size={10} />}
                         {spot.category === 'Marina' && <Anchor size={10} />}
                         {spot.category === 'Church' && <MapPin size={10} />}
-                        {spot.category === 'Attraction' && <Star size={10} />}
+                        {spot.category === 'School' && <BookOpen size={10} />}
                         {spot.category}
                       </span>
                     </div>
