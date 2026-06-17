@@ -4,11 +4,12 @@ import { ArrowRight, MapPin, Clock, TreePine, Anchor } from 'lucide-react';
 interface CedarCreekLakePageProps {
   phone: string;
   companyName: string;
+  heroImage: string;
   onContact: () => void;
   onEmeraldBay: () => void;
 }
 
-export const CedarCreekLakePage: React.FC<CedarCreekLakePageProps> = ({ phone, companyName, onContact, onEmeraldBay }) => {
+export const CedarCreekLakePage: React.FC<CedarCreekLakePageProps> = ({ phone, companyName, heroImage, onContact, onEmeraldBay }) => {
   return (
     <main className="flex-1 pt-24 page-enter">
 
@@ -16,7 +17,7 @@ export const CedarCreekLakePage: React.FC<CedarCreekLakePageProps> = ({ phone, c
       <section className="relative h-[70vh] min-h-[520px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=2070"
+            src={heroImage}
             className="w-full h-full object-cover brightness-[0.55]"
             alt="Cedar Creek Lake Texas luxury custom home builder"
           />

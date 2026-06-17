@@ -5,10 +5,11 @@ interface EmeraldBayPageProps {
   phone: string;
   email: string;
   companyName: string;
+  heroImage: string;
   onContact: () => void;
 }
 
-export const EmeraldBayPage: React.FC<EmeraldBayPageProps> = ({ phone, companyName, onContact }) => {
+export const EmeraldBayPage: React.FC<EmeraldBayPageProps> = ({ phone, companyName, heroImage, onContact }) => {
   return (
     <main className="flex-1 pt-24 page-enter">
 
@@ -16,7 +17,7 @@ export const EmeraldBayPage: React.FC<EmeraldBayPageProps> = ({ phone, companyNa
       <section className="relative h-[70vh] min-h-[520px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=2070"
+            src={heroImage}
             className="w-full h-full object-cover brightness-[0.55]"
             alt="Emerald Bay at Cedar Creek Lake luxury custom home"
           />
