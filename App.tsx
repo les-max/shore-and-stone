@@ -678,6 +678,9 @@ const App: React.FC = () => {
                 highlevelToken={settings.highlevelToken}
                 highlevelLocationId={settings.highlevelLocationId}
                 highlevelMessageFieldKey={settings.highlevelMessageFieldKey}
+                highlevelPipelineId={settings.highlevelPipelineId}
+                highlevelPipelineStageId={settings.highlevelPipelineStageId}
+                notificationEmail={settings.notificationEmail}
                />
             </div>
           </div>

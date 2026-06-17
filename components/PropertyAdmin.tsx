@@ -581,6 +581,36 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                                 <p className="text-[10px] text-neutral-400">In HighLevel: Settings → Custom Fields → find your text field → use the Field Key shown (e.g. <span className="font-mono">contact.web_inquiry</span>). The form message will be saved to this field on the contact.</p>
                             </div>
                             <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase text-neutral-400">HighLevel Pipeline ID</label>
+                                <input
+                                    className="w-full p-3 border rounded-xl font-mono text-sm"
+                                    value={tempSettings.highlevelPipelineId || ''}
+                                    onChange={e => setTempSettings({...tempSettings, highlevelPipelineId: e.target.value})}
+                                    placeholder="abc123..."
+                                />
+                                <p className="text-[10px] text-neutral-400">Pipeline ID from GHL — Opportunities → Pipelines. Each web inquiry will be added as an opportunity in this pipeline.</p>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase text-neutral-400">HighLevel Pipeline Stage ID (New Inquiry)</label>
+                                <input
+                                    className="w-full p-3 border rounded-xl font-mono text-sm"
+                                    value={tempSettings.highlevelPipelineStageId || ''}
+                                    onChange={e => setTempSettings({...tempSettings, highlevelPipelineStageId: e.target.value})}
+                                    placeholder="stage-id..."
+                                />
+                                <p className="text-[10px] text-neutral-400">Stage ID for the first stage (New Inquiry) in the pipeline above.</p>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase text-neutral-400">New Inquiry Notification Email</label>
+                                <input
+                                    className="w-full p-3 border rounded-xl text-sm"
+                                    value={tempSettings.notificationEmail || ''}
+                                    onChange={e => setTempSettings({...tempSettings, notificationEmail: e.target.value})}
+                                    placeholder="brad@cedarluxproperties.com"
+                                />
+                                <p className="text-[10px] text-neutral-400">This address receives an email summary for every new web inquiry.</p>
+                            </div>
+                            <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase text-neutral-400">Fallback Webhook URL (Zapier, Make.com, etc.)</label>
                                 <input
                                     className="w-full p-3 border rounded-xl font-mono text-sm"

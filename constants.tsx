@@ -138,7 +138,10 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   "webhookUrl": "",
   "highlevelToken": "",
   "highlevelLocationId": "",
-  "highlevelMessageFieldKey": ""
+  "highlevelMessageFieldKey": "",
+  "highlevelPipelineId": "",
+  "highlevelPipelineStageId": "",
+  "notificationEmail": ""
 };
 
 export const INITIAL_PROPERTIES: Property[] = [

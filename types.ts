@@ -71,6 +71,9 @@ export interface SiteSettings {
   highlevelToken: string;
   highlevelLocationId: string;
   highlevelMessageFieldKey: string;
+  highlevelPipelineId: string;
+  highlevelPipelineStageId: string;
+  notificationEmail: string;
 }
 
 export interface ChatMessage {

@@ -8,9 +8,12 @@ interface ContactFormProps {
   highlevelToken?: string;
   highlevelLocationId?: string;
   highlevelMessageFieldKey?: string;
+  highlevelPipelineId?: string;
+  highlevelPipelineStageId?: string;
+  notificationEmail?: string;
 }
 
-export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyName, prefillMessage, highlevelToken, highlevelLocationId, highlevelMessageFieldKey }) => {
+export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyName, prefillMessage, highlevelToken, highlevelLocationId, highlevelMessageFieldKey, highlevelPipelineId, highlevelPipelineStageId, notificationEmail }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -51,6 +54,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({ webhookUrl, companyNam
             consentText,
             highlevelToken,
             highlevelLocationId,
+            highlevelPipelineId,
+            highlevelPipelineStageId,
+            notificationEmail,
           }),
         });
 
