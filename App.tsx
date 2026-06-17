@@ -262,7 +262,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-neutral-50 flex flex-col">
       <nav className="fixed w-full z-50 glass shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 h-24 flex items-center justify-between">
           <div className="flex items-center gap-4 cursor-pointer" onClick={() => setView('home')}>
             <img
               src={settings.logoImage}
@@ -306,7 +306,7 @@ const App: React.FC = () => {
               <img src={settings.heroImage} className="w-full h-full object-cover brightness-[0.65]" alt="" />
               <div className="absolute inset-0 bg-gradient-to-t from-lake/60 via-transparent to-black/30"></div>
             </div>
-            <div className="relative max-w-7xl mx-auto px-6 pt-24 text-white">
+            <div className="relative max-w-7xl mx-auto px-6 md:px-10 pt-24 text-white">
               <div className="hero-item hero-item-1 inline-block px-4 py-2 border border-white/30 bg-white/10 backdrop-blur-md rounded-full mb-8">
                 <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Exclusively Cedar Creek Lake</span>
               </div>
@@ -323,7 +323,7 @@ const App: React.FC = () => {
           </section>
 
           <section className="py-32 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="flex justify-between items-end mb-16">
                 <div>
                   <h2 className="text-5xl md:text-6xl font-bold italic serif">Featured Homes</h2>
@@ -346,7 +346,7 @@ const App: React.FC = () => {
           </section>
 
           <section className="py-32 bg-lake text-white relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <div className="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center gap-16">
               <div className="flex-1">
                 <h2 className="text-5xl font-medium serif italic mb-8">{settings.lifestyleHeadline}</h2>
                 <p className="text-neutral-400 text-xl font-light mb-12 leading-relaxed">{settings.lifestyleSubheadline}</p>
@@ -520,7 +520,7 @@ const App: React.FC = () => {
               <img src={settings.lifestyleHeroImage} className="w-full h-full object-cover object-center" alt="Lifestyle" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             </div>
-            <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20 w-full">
+            <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pb-20 w-full">
               <span className="text-xs font-bold uppercase tracking-[0.5em] text-luxury-gold mb-5 block">Cedar Creek Lake</span>
               <h1 className="text-6xl md:text-8xl font-medium serif italic text-white mb-6 max-w-4xl leading-[1.05]">{settings.lifestyleHeroHeadline}</h1>
               <p className="text-lg md:text-xl text-neutral-300 font-light max-w-2xl leading-relaxed">{settings.lifestyleHeroSubheadline}</p>
@@ -529,7 +529,7 @@ const App: React.FC = () => {
 
           {/* Key highlights strip */}
           <section className="bg-lake py-10">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 {[
                   { value: '60', unit: 'min', label: 'From Dallas' },
@@ -551,7 +551,7 @@ const App: React.FC = () => {
 
           {/* Editorial: The Lake Life */}
           <section className="py-32 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div>
                   <span className="text-xs font-bold uppercase tracking-[0.4em] text-luxury-gold mb-6 block">The Location</span>
@@ -583,7 +583,7 @@ const App: React.FC = () => {
 
           {/* Life Around the Lake — filterable amenity cards */}
           <section className="py-32 bg-neutral-50">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="text-center mb-16">
                 <span className="text-xs font-bold uppercase tracking-[0.4em] text-luxury-gold mb-4 block">The Area</span>
                 <h2 className="text-5xl font-bold serif italic mb-4">Life Around the Lake</h2>
@@ -632,7 +632,7 @@ const App: React.FC = () => {
 
       {view === 'listings' && (
         <main className="flex-1 pt-40 pb-32 page-enter">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-6 md:px-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
                <div>
                   <h1 className="text-6xl font-medium serif italic mb-6">The Collection</h1>
@@ -722,7 +722,7 @@ const App: React.FC = () => {
 
       {view === 'contact' && (
         <main className="flex-1 pt-40 pb-32 bg-neutral-50 page-enter">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-6 md:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
                <div>
                   <h1 className="text-6xl font-medium serif italic mb-8">Let's Build Your Legacy.</h1>
@@ -841,7 +841,7 @@ const App: React.FC = () => {
       )}
 
       <footer className="bg-white border-t border-neutral-100 py-16">
-         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+         <div className="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="text-center md:text-left">
                <div className="mb-4">
                  <img

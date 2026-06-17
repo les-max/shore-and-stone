@@ -22,7 +22,7 @@ export const EmeraldBayPage: React.FC<EmeraldBayPageProps> = ({ phone, companyNa
           />
           <div className="absolute inset-0 bg-gradient-to-t from-lake/80 via-lake/20 to-transparent" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 pb-20 text-white">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10 pb-20 text-white">
           <div className="inline-flex items-center gap-2 px-4 py-2 border border-white/30 bg-white/10 backdrop-blur-md rounded-full mb-6">
             <MapPin size={12} />
             <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Cedar Creek Lake, Texas</span>
@@ -38,7 +38,7 @@ export const EmeraldBayPage: React.FC<EmeraldBayPageProps> = ({ phone, companyNa
 
       {/* Intro */}
       <section className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold mb-4">The Premier Community</p>
             <h2 className="text-4xl md:text-5xl font-bold serif italic mb-8 leading-tight">
@@ -76,7 +76,7 @@ export const EmeraldBayPage: React.FC<EmeraldBayPageProps> = ({ phone, companyNa
 
       {/* What We Build */}
       <section className="py-28 bg-neutral-50">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="max-w-3xl mx-auto text-center mb-20">
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold mb-4">Our Approach</p>
             <h2 className="text-4xl md:text-5xl font-bold serif italic mb-6">
@@ -116,7 +116,7 @@ export const EmeraldBayPage: React.FC<EmeraldBayPageProps> = ({ phone, companyNa
 
       {/* Press */}
       <section className="py-20 bg-lake text-white">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 text-center">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold mb-4">As Seen In</p>
           <h2 className="text-3xl md:text-4xl font-bold serif italic mb-12">
             Emerald Bay Is a Story Worth Telling
