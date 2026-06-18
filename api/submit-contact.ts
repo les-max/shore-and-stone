@@ -77,19 +77,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // 4. Create opportunity in pipeline (best-effort — does not block form success)
-  if (contactId && highlevelPipelineId && highlevelPipelineStageId) {
-    await fetch(`${HL_BASE}/opportunities/`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        pipelineId: highlevelPipelineId,
-        pipelineStageId: highlevelPipelineStageId,
-        locationId: highlevelLocationId,
-        contactId,
-        name: `${name} — Web Inquiry`,
-        status: 'open',
-      }),
-    }).catch(() => {});
+  if (contactId && highlevelPipelineId) {
+    let stageId = highlevelPipelineStageId;
+    // If no stage ID stored, look up "New Inquiry" stage by name
+    if (!stageId) {
+      const pipelinesRes = await fetch(
+        `${HL_BASE}/opportunities/pipelines?locationId=${highlevelLocationId}`,
+        { headers }
+      ).catch(() => null);
+      if (pipelinesRes?.ok) {
+        const pipelinesData = await pipelinesRes.json().catch(() => null);
+        const pipeline = pipelinesData?.pipelines?.find((p: any) => p.id === highlevelPipelineId);
+        stageId = pipeline?.stages?.find((s: any) => s.name === 'New Inquiry')?.id;
+      }
+    }
+    if (stageId) {
+      await fetch(`${HL_BASE}/opportunities/`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          pipelineId: highlevelPipelineId,
+          pipelineStageId: stageId,
+          locationId: highlevelLocationId,
+          contactId,
+          name: `${name} — Web Inquiry`,
+          status: 'open',
+        }),
+      }).catch(() => {});
+    }
   }
 
   // 5. Send auto-reply email to inquirer (best-effort)
