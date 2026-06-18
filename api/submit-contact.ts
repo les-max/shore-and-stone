@@ -44,6 +44,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       phone,
       source: companyName,
       tags,
+      customFields: message
+        ? [{ key: 'web_inquiry_message', field_value: message }]
+        : [],
     }),
   });
 
