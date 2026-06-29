@@ -1,6 +1,8 @@
 
 export type PropertyStatus = 'Available' | 'Sold' | 'Under Construction';
 
+export type PropertyType = 'Home' | 'Lot' | 'Floor Plan';
+
 export interface Property {
   id: string;
   title: string;
@@ -12,9 +14,12 @@ export interface Property {
   image: string;
   gallery: string[];
   status: PropertyStatus;
+  propertyType: PropertyType;
   neighborhood: string;
   features: string[];
   address?: string;
+  acres?: number;
+  waterfront?: boolean;
   isFeatured?: boolean;
   listingUrl?: string;
   created_at?: string;

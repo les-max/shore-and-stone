@@ -157,6 +157,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     "image": "/lake-home.png",
     "gallery": [],
     "status": "Available",
+    "propertyType": "Home",
     "neighborhood": "Long Cove",
     "features": [],
     "address": "217 Autumn Wood Trail, Mabank, TX 75147",

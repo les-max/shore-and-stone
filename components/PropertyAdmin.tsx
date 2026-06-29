@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Property, PropertyStatus, SiteSettings, LocalSpot } from '../types';
+import { Property, PropertyStatus, PropertyType, SiteSettings, LocalSpot } from '../types';
 import { Layout, Settings, Edit2, Trash2, X, Sun, LogOut, Plus, Save, CheckCircle, Zap, Star, MapPin, Upload, Loader2 } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 
@@ -40,9 +40,12 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
     image: '',
     gallery: [],
     status: 'Available',
+    propertyType: 'Home',
     neighborhood: settings.neighborhoods[0] || 'Cedar Creek Lake',
     features: [],
     address: '',
+    acres: undefined,
+    waterfront: false,
     isFeatured: false,
     listingUrl: ''
   });
@@ -188,6 +191,14 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                           <input className="w-full p-3 border rounded-xl" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
                        </div>
                        <div className="space-y-2">
+                          <label className="text-xs font-bold uppercase text-neutral-400">Type</label>
+                          <select className="w-full p-3 border rounded-xl" value={formData.propertyType || 'Home'} onChange={e => setFormData({...formData, propertyType: e.target.value as PropertyType})}>
+                             <option value="Home">Home</option>
+                             <option value="Lot">Lot</option>
+                             <option value="Floor Plan">Floor Plan</option>
+                          </select>
+                       </div>
+                       <div className="space-y-2">
                           <label className="text-xs font-bold uppercase text-neutral-400">Address</label>
                           <input className="w-full p-3 border rounded-xl" placeholder="123 Lakeview Dr, Mabank, TX" value={formData.address || ''} onChange={e => setFormData({...formData, address: e.target.value})} />
                        </div>
@@ -219,6 +230,21 @@ export const PropertyAdmin: React.FC<PropertyAdminProps> = ({
                           <label className="text-xs font-bold uppercase text-neutral-400">SqFt</label>
                           <input type="number" className="w-full p-3 border rounded-xl" value={formData.sqft} onChange={e => setFormData({...formData, sqft: Number(e.target.value)})} />
                        </div>
+                       {formData.propertyType === 'Lot' && (
+                         <>
+                           <div className="space-y-2">
+                              <label className="text-xs font-bold uppercase text-neutral-400">Acres</label>
+                              <input type="number" step="0.01" className="w-full p-3 border rounded-xl" value={formData.acres ?? ''} onChange={e => setFormData({...formData, acres: e.target.value === '' ? undefined : Number(e.target.value)})} />
+                           </div>
+                           <div className="space-y-2">
+                              <label className="text-xs font-bold uppercase text-neutral-400">Waterfront</label>
+                              <label className="flex items-center gap-3 p-3 border rounded-xl cursor-pointer">
+                                 <input type="checkbox" checked={!!formData.waterfront} onChange={e => setFormData({...formData, waterfront: e.target.checked})} />
+                                 <span className="text-sm font-medium">Waterfront / water access</span>
+                              </label>
+                           </div>
+                         </>
+                       )}
                     </div>
                     <div className="space-y-2">
                        <label className="text-xs font-bold uppercase text-neutral-400">Description</label>

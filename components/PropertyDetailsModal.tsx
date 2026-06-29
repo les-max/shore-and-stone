@@ -62,7 +62,9 @@ export const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ prop
           <div className="flex justify-between items-start mb-4">
             <h2 className="text-4xl font-bold serif">{property.title}</h2>
           </div>
-          <p className="text-3xl font-bold text-luxury-gold mb-8">{formatter.format(property.price)}</p>
+          {property.propertyType !== 'Floor Plan' && property.price > 0 && (
+            <p className="text-3xl font-bold text-luxury-gold mb-8">{formatter.format(property.price)}</p>
+          )}
           
           <div className="grid grid-cols-3 gap-6 py-8 border-y border-neutral-100 mb-8">
             <div className="text-center">

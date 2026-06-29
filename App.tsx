@@ -324,7 +324,7 @@ const App: React.FC = () => {
             <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="flex justify-between items-end mb-16">
                 <div>
-                  <h2 className="text-5xl md:text-6xl font-bold italic serif">Featured Homes</h2>
+                  <h2 className="text-5xl md:text-6xl font-bold italic serif">Featured Properties</h2>
                   <p className="text-neutral-500 mt-4 max-w-xl">A selection of our most prestigious properties currently overlooking Cedar Creek Lake.</p>
                 </div>
                 <button onClick={() => setView('listings')} className="group/btn text-luxury-gold font-bold flex items-center gap-2 transition-colors pb-2 border-b-2 border-luxury-gold active:scale-[0.97] transition-transform duration-150 ease-out">
@@ -660,14 +660,32 @@ const App: React.FC = () => {
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold mb-3">{featured.neighborhood}</p>
                     <h2 className="text-3xl md:text-4xl font-bold serif italic text-lake mb-2">{featured.title}</h2>
                     {featured.address && <p className="text-neutral-400 text-sm font-medium mb-6">{featured.address}</p>}
-                    <div className="flex gap-6 mb-8 text-sm font-bold text-neutral-600">
-                      <span>{featured.beds} Beds</span>
-                      <span className="text-neutral-200">|</span>
-                      <span>{featured.baths} Baths</span>
-                      <span className="text-neutral-200">|</span>
-                      <span>{featured.sqft.toLocaleString()} SqFt</span>
-                    </div>
-                    <p className="text-2xl font-black text-lake mb-8">${featured.price.toLocaleString()}</p>
+                    {(() => {
+                      const ftype = featured.propertyType || 'Home';
+                      const facts = ftype === 'Lot'
+                        ? [
+                            featured.acres && featured.acres > 0 ? `${featured.acres} Acres` : null,
+                            featured.waterfront ? 'Waterfront' : null,
+                          ]
+                        : [
+                            featured.beds > 0 ? `${featured.beds} Beds` : null,
+                            featured.baths > 0 ? `${featured.baths} Baths` : null,
+                            featured.sqft > 0 ? `${featured.sqft.toLocaleString()} SqFt` : null,
+                          ];
+                      const shown = facts.filter(Boolean) as string[];
+                      if (shown.length === 0) return null;
+                      return (
+                        <div className="flex gap-6 mb-8 text-sm font-bold text-neutral-600">
+                          {shown.map((f, i) => (
+                            <React.Fragment key={f}>
+                              {i > 0 && <span className="text-neutral-200">|</span>}
+                              <span>{f}</span>
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      );
+                    })()}
+                    {(featured.propertyType || 'Home') !== 'Floor Plan' && featured.price > 0 && <p className="text-2xl font-black text-lake mb-8">${featured.price.toLocaleString()}</p>}
                     <div className="flex flex-wrap gap-3">
                       <button
                         onClick={() => setSelectedProperty(featured)}
@@ -692,21 +710,31 @@ const App: React.FC = () => {
             })()}
 
             {filteredProperties.length > 0 ? (
-              <>
-                <div className="mb-10">
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold mb-2">Available Homes</p>
-                  <h2 className="text-3xl font-bold serif italic text-lake">Homes You Can Buy Today</h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                  {filteredProperties.map(property => (
-                    <PropertyCard
-                      key={property.id}
-                      property={property}
-                      onViewDetails={setSelectedProperty}
-                    />
-                  ))}
-                </div>
-              </>
+              [
+                { type: 'Home', eyebrow: 'Available Homes', heading: 'Homes You Can Buy Today' },
+                { type: 'Lot', eyebrow: 'Available Lots', heading: 'Lakeside Lots & Land' },
+                { type: 'Floor Plan', eyebrow: 'Available Floor Plans', heading: 'Plans to Build Your Dream' },
+              ].map(section => {
+                const group = filteredProperties.filter(p => (p.propertyType || 'Home') === section.type);
+                if (group.length === 0) return null;
+                return (
+                  <div key={section.type} className="mb-20 last:mb-0">
+                    <div className="mb-10">
+                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold mb-2">{section.eyebrow}</p>
+                      <h2 className="text-3xl font-bold serif italic text-lake">{section.heading}</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                      {group.map(property => (
+                        <PropertyCard
+                          key={property.id}
+                          property={property}
+                          onViewDetails={setSelectedProperty}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })
             ) : (
               <div className="py-40 text-center">
                 <Search size={48} className="mx-auto text-neutral-200 mb-6" />
