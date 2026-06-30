@@ -249,6 +249,11 @@ const App: React.FC = () => {
     return statusMatch;
   });
 
+  // Home "Featured Properties" section: show admin-starred properties (max 3).
+  // If nothing is starred, fall back to the 3 newest so the section is never blank.
+  const starredProperties = properties.filter(p => p.isFeatured).slice(0, 3);
+  const homeFeatured = starredProperties.length > 0 ? starredProperties : properties.slice(0, 3);
+
   const statusesList = ['All', 'Available', 'Under Construction', 'Sold'];
 
   if (isLoading) {
@@ -332,8 +337,8 @@ const App: React.FC = () => {
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {properties.slice(0, 3).map(property => (
-                  <PropertyCard 
+                {homeFeatured.map(property => (
+                  <PropertyCard
                     key={property.id} 
                     property={property} 
                     onViewDetails={setSelectedProperty}
